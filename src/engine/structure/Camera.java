@@ -7,18 +7,28 @@ import org.joml.Vector3f;
 
 public class Camera {
     public Matrix4f view = new Matrix4f(), projection = new Matrix4f();
-    public Vector3f position = new Vector3f(2.5f, 2.5f, 0);
-    public Quaternionf rotation = new Quaternionf();
+    public Vector3f position = new Vector3f(2.5f, 2, -10);
+    public Vector3f rotation = new Vector3f();
     public float near = 0, far = 100, fov = 70;
 
+    public Camera(){
+        rotation.y = (float)Math.toRadians(45);
+        rotation.x = (float)Math.toRadians(75);
+    }
+
+    private void update(){
+    }
+
     public void calculateView(){
+        update();
+
         view.identity();
         view.translate(position);
-        view.rotate(rotation);
+        view.rotateAffineXYZ(rotation.x, rotation.y, rotation.z);
     }
 
     public void calculateProjection() {
         projection.identity();
-        projection.ortho(0, Runtime.display.width / 100, 0, Runtime.display.height / 100, near, far);
+        projection.ortho(0, Runtime.display.width / 50, 0, Runtime.display.height / 50, near, far);
     }
 }

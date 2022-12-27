@@ -21,7 +21,6 @@ public class MeshImporter {
         MeshInstance meshes = new MeshInstance(shader);
 
         for(int i = 0; i < buffer.limit(); i++) {
-
             AIMesh m = AIMesh.create(buffer.get(i));
             processMesh(m);
 

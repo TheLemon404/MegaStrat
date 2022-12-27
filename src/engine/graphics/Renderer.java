@@ -28,6 +28,8 @@ public class Renderer {
     }
 
     public static void drawIndexed(Mesh mesh){
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         glBindVertexArray(mesh.id);
 
         glEnableVertexAttribArray(0);
@@ -46,8 +48,6 @@ public class Renderer {
     public static void lightingPass(FrameBuffer frameBuffer){
         lightingShader.bind();
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         lightingShader.uploadUniform(0, "u_position");
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, frameBuffer.positionTexture.id);
@@ -59,7 +59,7 @@ public class Renderer {
         lightingShader.uploadUniform(2, "u_color");
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, frameBuffer.colorTexture.id);
-        lightingShader.uploadUniform(new Vector3f(-1, -1, 0), "u_lightDirection");
+        lightingShader.uploadUniform(new Vector3f(-Runtime.currentScene.lightDirection.x, -Runtime.currentScene.lightDirection.y, -Runtime.currentScene.lightDirection.z), "u_lightDirection");
 
         RenderQuad.draw();
 

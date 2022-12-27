@@ -34,6 +34,7 @@ public class FrameBuffer {
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rb_id);
         glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
     }
 
     public void bind(){
@@ -44,7 +45,11 @@ public class FrameBuffer {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    public void blit(){
-        glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+    public void blit(int tx, int ty){
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, id);
+        glReadBuffer(GL_COLOR_ATTACHMENT0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0,0, tx, ty);
+        glBlitFramebuffer(0, 0, width, height, 0, 0, tx, ty, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     }
 }

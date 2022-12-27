@@ -8,11 +8,12 @@ import engine.structure.Entity;
 import engine.structure.Scene;
 import testing.TestScene;
 
+import static org.lwjgl.opengl.GL11.glViewport;
+
 public class Runtime {
     public static Display display;
     public static Scene currentScene = new TestScene();
     public static FrameBuffer frameBuffer;
-
     public static void start(Display display){
         Runtime.display = display;
 
@@ -22,7 +23,7 @@ public class Runtime {
             entity.meshInstance.loadMeshes();
         }
 
-        frameBuffer = new FrameBuffer(display.width, display.height);
+        frameBuffer = new FrameBuffer(display.width / 4, display.height / 4);
 
         RenderQuad.prepare();
 
@@ -41,6 +42,8 @@ public class Runtime {
         }
 
         frameBuffer.unbind();
+
+        frameBuffer.blit(display.width, display.height);
 
         Renderer.lightingPass(frameBuffer);
     }

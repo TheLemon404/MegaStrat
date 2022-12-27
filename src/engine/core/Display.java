@@ -73,8 +73,8 @@ public class Display {
         Runtime.start(this);
 
         while(!glfwWindowShouldClose(window)){
+            glEnable(GL_CULL_FACE);
             glClearColor(0.8f, 0.9f, 1,1);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             Runtime.loop();
 

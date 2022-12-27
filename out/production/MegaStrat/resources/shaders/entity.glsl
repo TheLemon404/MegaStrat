@@ -15,7 +15,7 @@ void main() {
     vec4 world = u_transform * vec4(a_position, 1);
     gl_Position = u_projection * u_view * world;
     position = world;
-    normal = a_normal;
+    normal = (u_transform * vec4(a_normal, 0)).xyz;
 }
 
 #split
@@ -28,11 +28,9 @@ in vec4 position;
 layout(location = 0) out vec4 o_color;
 layout(location = 1) out vec4 o_normal;
 layout(location = 2) out vec4 o_position;
+
 void main() {
-
-    vec3 unitNormal = normalize(normal);
-
-    o_color = vec4(1,1,0.5,1);
-    o_normal = vec4(unitNormal, 1);
+    o_color = vec4(1,1,0,1);
+    o_normal = vec4(normal, 1);
     o_position = position;
 }
