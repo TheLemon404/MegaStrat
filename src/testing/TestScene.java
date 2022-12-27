@@ -21,6 +21,7 @@ public class TestScene extends Scene {
 
     @Override
     public void update() {
+        e.meshInstance.transform.rotation.y += 0.01f;
     }
 
     @Override

@@ -26,8 +26,7 @@ public class MeshInstance {
 
     public void sendToRender(){
         for(Mesh mesh : meshes){
-            transform.rotation = mesh.subRotation;
-            transform.calculateMatrix();
+            transform.calculateMatrix(mesh.subRotation);
             Renderer.submit(shader, mesh, transform);
         }
     }

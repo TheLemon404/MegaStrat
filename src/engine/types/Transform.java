@@ -10,10 +10,10 @@ public class Transform {
     public Vector3f scale = new Vector3f(1,1,1);
     public Matrix4f matrix = new Matrix4f();
 
-    public void calculateMatrix(){
+    public void calculateMatrix(Vector3f rotation){
         matrix.identity();
         matrix.translate(position);
-        matrix.rotateAffineXYZ(rotation.x, rotation.y, rotation.z);
+        matrix.rotateAffineXYZ(this.rotation.x + rotation.x, this.rotation.y + rotation.y, this.rotation.z + rotation.z);
         matrix.scale(scale);
     }
 }
