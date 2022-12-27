@@ -28,7 +28,7 @@ void main() {
     vec3 normal = texture(u_normal, uv).rgb;
     vec3 color = texture(u_color, uv).rgb;
 
-    float diffuse = max(dot(normal, -u_lightDirection), 0.0);
+    float diffuse = max(dot(normal, -u_lightDirection), 0.3);
 
     o_color = vec4(color, 1) * diffuse;
 }

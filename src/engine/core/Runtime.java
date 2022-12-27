@@ -1,6 +1,7 @@
 package engine.core;
 
 import engine.graphics.FrameBuffer;
+import engine.graphics.RenderQuad;
 import engine.graphics.Renderer;
 import engine.graphics.Shader;
 import engine.structure.Entity;
@@ -23,7 +24,7 @@ public class Runtime {
 
         frameBuffer = new FrameBuffer(display.width, display.height);
 
-        Renderer.prepare();
+        RenderQuad.prepare();
 
         currentScene.camera.calculateProjection();
     }
