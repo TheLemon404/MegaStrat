@@ -53,6 +53,7 @@ public class Shader {
         bindAttribute(0, "a_position");
         bindAttribute(1, "a_uv");
         bindAttribute(2, "a_normal");
+        bindAttribute(3, "a_color");
     }
 
     public void bindAttribute(int attribute, String var){

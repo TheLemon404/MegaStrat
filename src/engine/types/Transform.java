@@ -16,4 +16,11 @@ public class Transform {
         matrix.rotateAffineXYZ(this.rotation.x + rotation.x, this.rotation.y + rotation.y, this.rotation.z + rotation.z);
         matrix.scale(scale);
     }
+
+    public void calculateMatrix(){
+        matrix.identity();
+        matrix.translate(position);
+        matrix.rotateAffineXYZ(this.rotation.x, this.rotation.y, this.rotation.z);
+        matrix.scale(scale);
+    }
 }

@@ -1,9 +1,9 @@
 package engine.core;
 
 import engine.graphics.FrameBuffer;
+import engine.graphics.Instance;
 import engine.graphics.RenderQuad;
-import engine.graphics.Renderer;
-import engine.graphics.Shader;
+import engine.graphics.EntityRenderer;
 import engine.structure.Entity;
 import engine.structure.Scene;
 import testing.TestScene;
@@ -22,10 +22,15 @@ public class Runtime {
             entity.start();
             entity.meshInstance.loadMeshes();
         }
+        for(Instance instance : currentScene.instances.values()){
+            instance.loadMesh();
+        }
 
-        frameBuffer = new FrameBuffer(display.width / 4, display.height / 4);
+        frameBuffer = new FrameBuffer(display.width / Globals.resolution, display.height / Globals.resolution);
 
         RenderQuad.prepare();
+
+        Globals.load();
 
         currentScene.camera.calculateProjection();
     }
@@ -42,12 +47,15 @@ public class Runtime {
             entity.update();
             entity.meshInstance.sendToRender();
         }
+        for(Instance instance : currentScene.instances.values()){
+            instance.sendToRender();
+        }
 
         frameBuffer.unbind();
 
         frameBuffer.blit(display.width, display.height);
 
-        Renderer.lightingPass(frameBuffer);
+        EntityRenderer.lightingPass(frameBuffer);
     }
 
     public static void end(){

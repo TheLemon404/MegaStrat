@@ -1,5 +1,6 @@
 package engine.structure;
 
+import engine.core.Globals;
 import engine.core.Runtime;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
@@ -13,7 +14,7 @@ public class Camera {
 
     public Camera(){
         rotation.y = (float)Math.toRadians(45);
-        rotation.x = (float)Math.toRadians(75);
+        rotation.x = (float)Math.toRadians(45);
     }
 
     private void update(){
@@ -29,6 +30,6 @@ public class Camera {
 
     public void calculateProjection() {
         projection.identity();
-        projection.ortho(0, Runtime.display.width / 50, 0, Runtime.display.height / 50, near, far);
+        projection.ortho(0, Runtime.display.width / (150 / Globals.resolution), 0, Runtime.display.height / (150 / Globals.resolution), near, far);
     }
 }

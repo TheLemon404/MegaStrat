@@ -3,9 +3,11 @@
 layout(location = 0) in vec3 a_position;
 layout(location = 1) in vec2 a_uv;
 layout(location = 2) in vec3 a_normal;
+layout(location = 3) in vec3 a_color;
 
 out vec3 normal;
 out vec4 position;
+out vec2 uv;
 out vec3 color;
 
 uniform vec3 u_color;
@@ -18,7 +20,8 @@ void main() {
     gl_Position = u_projection * u_view * world;
     position = world;
     normal = (u_transform * vec4(a_normal, 0)).xyz;
-    color = u_color;
+    color = u_color * a_color;
+    uv = a_uv;
 }
 
 #split
@@ -27,7 +30,10 @@ void main() {
 
 in vec3 normal;
 in vec4 position;
+in vec2 uv;
 in vec3 color;
+
+uniform sampler2D tex;
 
 layout(location = 0) out vec4 o_color;
 layout(location = 1) out vec4 o_normal;

@@ -37,6 +37,8 @@ public class Mesh {
 
     };
 
+    public float[] colors = null;
+
     public void load(){
         id = glGenVertexArrays();
         glBindVertexArray(id);
@@ -46,8 +48,13 @@ public class Mesh {
         storeAttribute(0, vertices, 3);
         storeAttribute(1, uvs, 2);
         storeAttribute(2, normals, 3);
+        if(colors != null) {
+            storeAttribute(3, colors, 3);
+        }
 
         glBindVertexArray(0);
+
+        material.texture.load();
     }
 
     private void storeIndices(int[] indices){

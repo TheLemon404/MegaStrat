@@ -11,15 +11,15 @@ out vec2 uv;
 out vec3 color;
 
 uniform vec3 u_color;
-uniform mat4 u_transform;
+uniform mat4 u_transforms[100];
 uniform mat4 u_view;
 uniform mat4 u_projection;
 
 void main() {
-    vec4 world = u_transform * vec4(a_position, 1);
+    vec4 world = u_transforms[gl_InstanceID] * vec4(a_position, 1);
     gl_Position = u_projection * u_view * world;
     position = world;
-    normal = (u_transform * vec4(a_normal, 0)).xyz;
+    normal = (u_transforms[gl_InstanceID] * vec4(a_normal, 0)).xyz;
     color = u_color * a_color;
     uv = a_uv;
 }

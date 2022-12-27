@@ -3,17 +3,13 @@ package engine.graphics;
 import engine.core.Runtime;
 import engine.types.Transform;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.*;
 
-public class Renderer {
+public class EntityRenderer {
     public static Shader lightingShader = new Shader("src/resources/shaders/lighting.glsl");
     public static void submit(Shader shader, Mesh mesh, Transform transform){
         shader.bind();
@@ -22,8 +18,12 @@ public class Renderer {
         shader.uploadUniform(Runtime.currentScene.camera.view, "u_view");
         shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
         shader.uploadUniform(mesh.material.color, "u_color");
+        shader.uploadUniform(3, "tex");
+        mesh.material.texture.bind(3);
 
         drawIndexed(mesh);
+
+        mesh.material.texture.unbind();
 
         shader.unbind();
     }
@@ -34,9 +34,15 @@ public class Renderer {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
+        if(mesh.colors != null) {
+            glEnableVertexAttribArray(3);
+        }
 
         glDrawElements(GL_TRIANGLES, mesh.indices.length, GL_UNSIGNED_INT, 0);
 
+        if(mesh.colors != null) {
+            glDisableVertexAttribArray(3);
+        }
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(0);

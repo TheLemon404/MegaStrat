@@ -46,7 +46,7 @@ public class RenderQuad {
 
         glBindVertexArray(0);
 
-        Renderer.lightingShader.compile();
+        EntityRenderer.lightingShader.compile();
     }
 
     private static void storeIndices(int[] indices){
