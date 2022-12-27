@@ -8,7 +8,7 @@ import engine.structure.Entity;
 import engine.structure.Scene;
 import testing.TestScene;
 
-import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Runtime {
     public static Display display;
@@ -35,6 +35,8 @@ public class Runtime {
         currentScene.camera.calculateView();
 
         frameBuffer.bind();
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for(Entity entity : currentScene.entities.values()){
             entity.update();

@@ -1,6 +1,8 @@
 package engine.graphics;
 
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -13,8 +15,8 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Mesh {
     public int id;
-    public Quaternionf subRotation = new Quaternionf();
-
+    public Vector3f subRotation = new Vector3f();
+    public Material material = new Material();
     public float[] vertices = {
             -0.5f,-0.5f,0,
             0.5f,-0.5f,0,

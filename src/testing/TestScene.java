@@ -12,17 +12,15 @@ import testing.entities.TestEntity;
 public class TestScene extends Scene {
 
     Entity e = new TestEntity();
-    float i = 0;
     @Override
     public void load() {
-        e.meshInstance = MeshImporter.loadMeshFromFile("src/resources/meshes/cube.fbx", new Shader("src/resources/shaders/entity.glsl"));
+        e.meshInstance = MeshImporter.loadMeshFromFile("src/resources/meshes/test.fbx", new Shader("src/resources/shaders/entity.glsl"));
         e.meshInstance.transform.scale = new Vector3f(0.2f, 0.2f, 0.2f);
         super.addEntity(e);
     }
 
     @Override
     public void update() {
-
     }
 
     @Override

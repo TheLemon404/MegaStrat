@@ -21,6 +21,7 @@ public class Renderer {
         shader.uploadUniform(transform.matrix, "u_transform");
         shader.uploadUniform(Runtime.currentScene.camera.view, "u_view");
         shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
+        shader.uploadUniform(mesh.material.color, "u_color");
 
         drawIndexed(mesh);
 
@@ -28,8 +29,6 @@ public class Renderer {
     }
 
     public static void drawIndexed(Mesh mesh){
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         glBindVertexArray(mesh.id);
 
         glEnableVertexAttribArray(0);
