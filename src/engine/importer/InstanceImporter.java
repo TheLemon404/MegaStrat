@@ -2,7 +2,6 @@ package engine.importer;
 
 import engine.graphics.Instance;
 import engine.graphics.Mesh;
-import engine.graphics.MeshInstance;
 import engine.graphics.Shader;
 import org.joml.Vector3f;
 import org.lwjgl.PointerBuffer;
@@ -33,12 +32,10 @@ public class InstanceImporter {
         Mesh mesh = new Mesh();
         mesh.vertices = toFloatArray(positions);
         mesh.indices = toIntArray(indices);
-        System.out.println(positions.size());
         mesh.normals = toFloatArray(normals);
         if(colors.size() != 0) {
             mesh.colors = toFloatArray(colors);
         }
-        System.out.println(colors.size());
 
 
         AIMaterial mat = AIMaterial.create(mbuffer.get(m.mMaterialIndex()));

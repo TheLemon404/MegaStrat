@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.core.Runtime;
 import engine.types.Transform;
+import engine.utils.Algorythms;
 import org.joml.Vector3f;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -11,13 +12,15 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class EntityRenderer {
     public static Shader lightingShader = new Shader("src/resources/shaders/lighting.glsl");
-    public static void submit(Shader shader, Mesh mesh, Transform transform){
+    public static void submit(Shader shader, Mesh mesh, Transform transform, int id){
         shader.bind();
 
         shader.uploadUniform(transform.matrix, "u_transform");
         shader.uploadUniform(Runtime.currentScene.camera.view, "u_view");
         shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
         shader.uploadUniform(mesh.material.color, "u_color");
+        shader.uploadUniform(mesh.material.shine, "u_shine");
+        shader.uploadUniform((float)id, "u_id");
         shader.uploadUniform(3, "tex");
         mesh.material.texture.bind(3);
 
@@ -32,7 +35,9 @@ public class EntityRenderer {
         glBindVertexArray(mesh.id);
 
         glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
+        if(mesh.uvs != null) {
+            glEnableVertexAttribArray(1);
+        }
         glEnableVertexAttribArray(2);
         if(mesh.colors != null) {
             glEnableVertexAttribArray(3);
@@ -44,7 +49,9 @@ public class EntityRenderer {
             glDisableVertexAttribArray(3);
         }
         glDisableVertexAttribArray(2);
-        glDisableVertexAttribArray(1);
+        if(mesh.uvs != null) {
+            glDisableVertexAttribArray(1);
+        }
         glDisableVertexAttribArray(0);
 
         glBindVertexArray(0);
@@ -64,6 +71,11 @@ public class EntityRenderer {
         lightingShader.uploadUniform(2, "u_color");
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, frameBuffer.colorTexture.id);
+
+        lightingShader.uploadUniform(3, "u_camera");
+        glActiveTexture(GL_TEXTURE3);
+        glBindTexture(GL_TEXTURE_2D, frameBuffer.reflectionTexture.id);
+
         lightingShader.uploadUniform(new Vector3f(-Runtime.currentScene.lightDirection.x, -Runtime.currentScene.lightDirection.y, -Runtime.currentScene.lightDirection.z), "u_lightDirection");
 
         RenderQuad.draw();

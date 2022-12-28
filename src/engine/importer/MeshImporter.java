@@ -1,7 +1,7 @@
 package engine.importer;
 
+import engine.graphics.Instance;
 import engine.graphics.Mesh;
-import engine.graphics.MeshInstance;
 import engine.graphics.Shader;
 import org.joml.Vector3f;
 import org.lwjgl.PointerBuffer;
@@ -18,39 +18,36 @@ public class MeshImporter {
     private static ArrayList<Float> colors = new ArrayList<>();
 
     private static ArrayList<Integer> indices = new ArrayList<>();
-    public static MeshInstance loadMeshFromFile(String path, Shader shader) {
+    public static Mesh loadMeshFromFile(String path, Shader shader) {
         AIScene scene = Assimp.aiImportFile(path, Assimp.aiProcess_Triangulate);
 
         PointerBuffer buffer = scene.mMeshes();
         PointerBuffer mbuffer = scene.mMaterials();
 
-        MeshInstance meshes = new MeshInstance(shader);
+        AIMesh m = AIMesh.create(buffer.get(0));
+        processMesh(m);
 
-        for(int i = 0; i < buffer.limit(); i++) {
-            AIMesh m = AIMesh.create(buffer.get(i));
-            processMesh(m);
-
-            Mesh mesh = new Mesh();
-            mesh.vertices = toFloatArray(positions);
-            mesh.indices = toIntArray(indices);
-            mesh.normals = toFloatArray(normals);
+        Mesh mesh = new Mesh();
+        mesh.vertices = toFloatArray(positions);
+        mesh.indices = toIntArray(indices);
+        mesh.normals = toFloatArray(normals);
+        if(colors.size() != 0) {
             mesh.colors = toFloatArray(colors);
-
-            AIMaterial mat = AIMaterial.create(mbuffer.get(m.mMaterialIndex()));
-            AIColor4D color = AIColor4D.create();
-            Assimp.aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, 0, 0, color);
-            mesh.material.color = new Vector3f(color.r(), color.g(), color.b());
-
-            positions = new ArrayList<>();
-            indices = new ArrayList<>();
-            uvs = new ArrayList<>();
-            normals = new ArrayList<>();
-            colors = new ArrayList<>();
-
-            meshes.addMesh(mesh);
         }
 
-        return meshes;
+
+        AIMaterial mat = AIMaterial.create(mbuffer.get(m.mMaterialIndex()));
+        AIColor4D color = AIColor4D.create();
+        Assimp.aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, 0, 0, color);
+        mesh.material.color = new Vector3f(color.r(), color.g(), color.b());
+
+        positions = new ArrayList<>();
+        indices = new ArrayList<>();
+        uvs = new ArrayList<>();
+        normals = new ArrayList<>();
+        colors = new ArrayList<>();
+
+        return mesh;
     }
 
     public static float[] toFloatArray(ArrayList<Float> a){

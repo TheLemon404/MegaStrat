@@ -29,10 +29,7 @@ public class Mesh {
             2, 1, 3
     };
 
-    public float[] uvs = {
-
-    };
-
+    public float[] uvs = null;
     public float[] normals = {
 
     };
@@ -46,7 +43,9 @@ public class Mesh {
         storeIndices(indices);
 
         storeAttribute(0, vertices, 3);
-        storeAttribute(1, uvs, 2);
+        if(uvs != null) {
+            storeAttribute(1, uvs, 2);
+        }
         storeAttribute(2, normals, 3);
         if(colors != null) {
             storeAttribute(3, colors, 3);
@@ -69,6 +68,14 @@ public class Mesh {
         glBindBuffer(GL_ARRAY_BUFFER, buffer);
         FloatBuffer b = createFloatBuffer(data);
         glBufferData(GL_ARRAY_BUFFER, b, GL_STATIC_DRAW);
+        glVertexAttribPointer(number, size, GL_FLOAT, false, 0, 0);
+        glBindBuffer(GL_ARRAY_BUFFER,0);
+    }
+
+    private void storeAttribute(int number, int data, int size){
+        int buffer = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
         glVertexAttribPointer(number, size, GL_FLOAT, false, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER,0);
     }

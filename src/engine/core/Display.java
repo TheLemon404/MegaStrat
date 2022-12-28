@@ -1,6 +1,8 @@
 package engine.core;
 
 import engine.events.DisplayEvents;
+import engine.events.KeyboardManager;
+import engine.events.MouseManager;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -62,6 +64,10 @@ public class Display {
         }
 
         glfwSetWindowSizeCallback(window, DisplayEvents::onResize);
+        glfwSetKeyCallback(window, KeyboardManager::callback);
+        glfwSetMouseButtonCallback(window, MouseManager::buttonCallback);
+        glfwSetCursorPosCallback(window, MouseManager::cursorCallback);
+        glfwSetScrollCallback(window, MouseManager::scrollCallback);
 
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);

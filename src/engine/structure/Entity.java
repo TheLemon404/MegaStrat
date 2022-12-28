@@ -1,14 +1,16 @@
 package engine.structure;
 
-import engine.graphics.MeshInstance;
+import engine.graphics.MasterMesh;
+import engine.utils.Algorythms;
+import engine.utils.MathTools;
 
 import java.util.Random;
 
 public abstract class Entity {
-    public MeshInstance meshInstance;
+    public MasterMesh meshInstance;
     public int id;
     public Entity(){
-        id = new Random().nextInt(0, 99999);
+        id = Algorythms.generateId(10000, 99999);
     }
     public abstract void start();
     public abstract void update();

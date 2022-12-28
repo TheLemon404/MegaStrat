@@ -8,16 +8,17 @@ import java.util.HashMap;
 public abstract class Scene {
     public Vector3f lightDirection = new Vector3f(-0.3f, -1, -0.7f);
     public Camera camera = new Camera();
+    public Sun sun = new Sun();
 
     public HashMap<Integer, Entity> entities = new HashMap<>();
 
     public HashMap<Integer, Instance> instances = new HashMap<>();
 
-    protected void addEntity(Entity entity){
+    public void addEntity(Entity entity){
         entities.put(entity.id, entity);
     }
 
-    protected void addInstance(Instance instance){
+    public void addInstance(Instance instance){
         instances.put(instance.id, instance);
     }
 

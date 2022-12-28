@@ -13,7 +13,7 @@ import static org.lwjgl.stb.STBImage.stbi_load;
 
 public class ImageTexture {
     private String filepath;
-    private int texID;
+    private int id;
 
     public ImageTexture(String filepath) {
         this.filepath = filepath;
@@ -21,8 +21,8 @@ public class ImageTexture {
 
     public void load(){
         // Generate texture on GPU
-        texID = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, texID);
+        id = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, id);
 
         // Set texture parameters
         // Repeat image in both directions
@@ -53,11 +53,13 @@ public class ImageTexture {
         }
 
         stbi_image_free(image);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     public void bind(int slot) {
         glActiveTexture(GL_TEXTURE0 + slot);
-        glBindTexture(GL_TEXTURE_2D, texID);
+        glBindTexture(GL_TEXTURE_2D, id);
     }
 
     public void unbind() {

@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.core.Runtime;
 import engine.types.Transform;
+import org.joml.Matrix4f;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
@@ -10,15 +11,20 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL31.glDrawElementsInstanced;
 
 public class InstanceRenderer {
-    public static void submit(Shader shader, Instance instance) {
+    public static void submit(Shader shader, Instance instance, Matrix4f view) {
         shader.bind();
 
         for (int i = 0; i < instance.transforms.size(); i++){
             shader.uploadUniform(instance.transforms.get(i).matrix, "u_transforms[" + i + "]");
         }
-        shader.uploadUniform(Runtime.currentScene.camera.view, "u_view");
+        shader.uploadUniform(view, "u_view");
         shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
-        shader.uploadUniform(instance.mesh.material.color, "u_color");
+        for (int i = 0; i < instance.materials.size(); i++){
+            shader.uploadUniform(instance.materials.get(i).color, "u_color[" + i + "]");
+        }
+        shader.uploadUniform(instance.mesh.material.shine, "u_shine");
+        shader.uploadUniform(4, "tex");
+        instance.mesh.material.texture.bind(4);
 
         drawInstance(instance);
 

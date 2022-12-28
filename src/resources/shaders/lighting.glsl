@@ -20,6 +20,7 @@ uniform vec3 u_lightDirection;
 uniform sampler2D u_position;
 uniform sampler2D u_normal;
 uniform sampler2D u_color;
+uniform sampler2D u_camera;
 
 layout(location = 0) out vec4 o_color;
 
@@ -27,11 +28,14 @@ void main() {
     vec3 position = texture(u_position, uv).rgb;
     vec3 normal = texture(u_normal, uv).rgb;
     vec3 color = texture(u_color, uv).rgb;
+    vec3 camera = texture(u_camera, uv).rgb;
 
-    vec3 unitNormal = normalize(normal);
     vec3 unitLightVector = normalize(u_lightDirection);
 
-    float diffuse = max(dot(unitNormal, unitLightVector), 0.3);
+    vec3 reflected = reflect(unitLightVector, normalize(normal));
+    vec3 specular = max(dot(reflected, camera), 0) * color / 2;
 
-    o_color = vec4(color, 1) * diffuse;
+    float diffuse = max(dot(normalize(normal), unitLightVector), 0.3);
+
+    o_color = vec4(specular, 1) + vec4(color, 1) * diffuse;
 }
