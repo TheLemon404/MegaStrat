@@ -62,11 +62,6 @@ public class Runtime {
 
         currentTileId = frameBuffer.sampleTile();
 
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)) {
-            Entity entity = currentScene.getEntity(frameBuffer.sampleId());
-            System.out.println(entity);
-        }
-
         frameBuffer.unbind();
 
         frameBuffer.blit(display.width, display.height);

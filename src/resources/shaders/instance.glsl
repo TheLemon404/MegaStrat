@@ -23,7 +23,7 @@ void main() {
     gl_Position = u_projection * u_view * world;
     position = world;
     normal = (u_transforms[gl_InstanceID] * vec4(a_normal, 0)).xyz;
-    color = u_color[gl_InstanceID] * a_color;
+    color = u_color[gl_InstanceID];
     uv = a_uv;
     toCamera = (inverse(u_view) * vec4(0,0,0,1)).xyz - world.xyz;
     tileId = u_tileId[gl_InstanceID];
