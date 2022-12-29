@@ -23,7 +23,7 @@ public class Terrain {
                 float b = MathTools.clamp(new Random().nextFloat(), -0.1f, 0.1f);
                 material.color = new Vector3f(0.4f, 0.6f + g, 0.4f + b);
                 instance.materials.add(material);
-                instance.transforms.add(t);
+                instance.addTransformWithId(t);
             }
         }
         scene.addInstance(instance);

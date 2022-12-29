@@ -46,6 +46,7 @@ layout(location = 1) out vec4 o_normal;
 layout(location = 2) out vec4 o_position;
 layout(location = 3) out vec4 o_shine;
 layout(location = 4) out vec4 o_id;
+layout(location = 5) out vec4 o_tileId;
 
 void main() {
     vec4 t = texture(tex, uv);
@@ -62,4 +63,5 @@ void main() {
     o_position = position;
     o_shine = vec4(toCamera, 0) * vec4(u_shine);
     o_id = vec4(u_id, 0, 0, 1);
+    o_tileId = vec4(0);
 }

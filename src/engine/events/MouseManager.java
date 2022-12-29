@@ -1,5 +1,8 @@
 package engine.events;
 
+import engine.core.Globals;
+import engine.core.Runtime;
+import engine.platform.PlatformResources;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -19,6 +22,17 @@ public class MouseManager {
         }
 
         return false;
+    }
+
+    public static float getScreenX() {
+        float x = (MouseManager.mousePosition.x / Runtime.display.width) * PlatformResources.monitor.width;
+        return x / Globals.resolution;
+    }
+
+    public static float getScreenY() {
+        float y = PlatformResources.monitor.height - ((MouseManager.mousePosition.y / Runtime.display.height) * PlatformResources.monitor.height);
+        y -= 10;
+        return y / Globals.resolution;
     }
 
     public static boolean isKeyUp(int key){

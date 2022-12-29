@@ -26,6 +26,9 @@ public class InstanceRenderer {
         shader.uploadUniform(instance.mesh.material.strength, "u_strength");
         shader.uploadUniform(4, "tex");
         instance.mesh.material.texture.bind(4);
+        for (int i = 0; i < instance.ids.size(); i++) {
+            shader.uploadUniform((float) instance.ids.get(i), "u_tileId[" + i + "]");
+        }
 
         drawInstance(instance);
 

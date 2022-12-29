@@ -19,7 +19,7 @@ import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL30.*;
 
 public class FrameBuffer {
-    public Texture colorTexture, normalTexture, positionTexture, reflectionTexture, entityTexture;
+    public Texture colorTexture, normalTexture, positionTexture, reflectionTexture, entityTexture, tileTexture;
     public int id, width, height, rb_id;
 
     public FrameBuffer(int width, int height){
@@ -34,6 +34,7 @@ public class FrameBuffer {
         positionTexture = new Texture(width, height);
         reflectionTexture = new Texture(width, height);
         entityTexture = new Texture(width, height);
+        tileTexture = new Texture(width, height);
 
         colorTexture.load(GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTexture.id, 0);
@@ -50,7 +51,10 @@ public class FrameBuffer {
         entityTexture.load(GL_RGBA32F, GL_RGBA, GL_FLOAT);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, entityTexture.id, 0);
 
-        glDrawBuffers(new int[]{GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4});
+        tileTexture.load(GL_RGBA32F, GL_RGBA, GL_FLOAT);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT5, GL_TEXTURE_2D, tileTexture.id, 0);
+
+        glDrawBuffers(new int[]{GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5});
 
         rb_id = glGenRenderbuffers();
         glBindRenderbuffer(GL_RENDERBUFFER, rb_id);
@@ -64,14 +68,12 @@ public class FrameBuffer {
     public int sampleId(){
         glBindFramebuffer(GL_READ_FRAMEBUFFER, id);
 
-        int x = (int)getScreenX();
-        int y = (int)getScreenY();
+        int x = (int)MouseManager.getScreenX();
+        int y = (int)MouseManager.getScreenY();
         glReadBuffer(GL_COLOR_ATTACHMENT4);
         FloatBuffer pixelData = BufferUtils.createFloatBuffer(4);
 
         glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, pixelData);
-        System.out.println(height);
-        System.out.println(y);
 
         glReadBuffer(GL_NONE);
 
@@ -80,32 +82,21 @@ public class FrameBuffer {
         return (int)pixelData.get(0);
     }
 
-    private float getScreenX() {
-        float x = (MouseManager.mousePosition.x / Runtime.display.width) * PlatformResources.monitor.width;
-        return x / Globals.resolution;
-    }
-
-    private float getScreenY() {
-        float y = PlatformResources.monitor.height - ((MouseManager.mousePosition.y / Runtime.display.height) * PlatformResources.monitor.height);
-        y -= 30;
-        return y / Globals.resolution;
-    }
-
-    public Vector3f samplePosition(){
+    public int sampleTile(){
         glBindFramebuffer(GL_READ_FRAMEBUFFER, id);
 
-        int x = (int)getScreenX();
-        int y = (int)getScreenY();
-        glReadBuffer(GL_COLOR_ATTACHMENT2);
+        int x = (int)MouseManager.getScreenX();
+        int y = (int)MouseManager.getScreenY();
+        glReadBuffer(GL_COLOR_ATTACHMENT5);
         FloatBuffer pixelData = BufferUtils.createFloatBuffer(4);
 
-        glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixelData);
+        glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, pixelData);
 
         glReadBuffer(GL_NONE);
 
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 
-        return null;
+        return (int)pixelData.get(0);
     }
 
     public void bind(){

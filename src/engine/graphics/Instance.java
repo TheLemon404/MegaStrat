@@ -11,16 +11,33 @@ public class Instance {
     public Mesh mesh = new Mesh();
     public ArrayList<Material> materials = new ArrayList<>();
     public ArrayList<Transform> transforms = new ArrayList<>();
-    public int id;
+    public ArrayList<Integer> ids = new ArrayList<>();
     public Shader shader;
 
     public Instance(Shader shader){
-        id = Algorythms.generateId(1000, 9999);
         this.shader = shader;
         shader.compile();
     }
 
+    public void addTransformWithId(Transform transform){
+        transforms.add(transform);
+        ids.add(Algorythms.generateId(10000, 99999));
+    }
+
+    public Transform getTransformFromId(int id){
+        for(int i = 0; i < transforms.size(); i++) {
+            if(ids.get(i) == id) {
+                return transforms.get(i);
+            }
+        }
+
+        return null;
+    }
+
     public void loadMesh(){
+        for(int i = 0; i < transforms.size(); i++){
+            ids.add(Algorythms.generateId(10000, 99999));
+        }
         mesh.load();
     }
 

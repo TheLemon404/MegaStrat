@@ -10,9 +10,11 @@ out vec4 position;
 out vec2 uv;
 out vec3 color;
 out vec3 toCamera;
+flat out float tileId;
 
 uniform vec3 u_color[100];
 uniform mat4 u_transforms[100];
+uniform float u_tileId[100];
 uniform mat4 u_view;
 uniform mat4 u_projection;
 
@@ -24,6 +26,7 @@ void main() {
     color = u_color[gl_InstanceID] * a_color;
     uv = a_uv;
     toCamera = (inverse(u_view) * vec4(0,0,0,1)).xyz - world.xyz;
+    tileId = u_tileId[gl_InstanceID];
 }
 
 #split
@@ -35,6 +38,7 @@ in vec4 position;
 in vec2 uv;
 in vec3 color;
 in vec3 toCamera;
+flat in float tileId;
 
 uniform sampler2D tex;
 uniform float u_shine;
@@ -44,6 +48,8 @@ layout(location = 0) out vec4 o_color;
 layout(location = 1) out vec4 o_normal;
 layout(location = 2) out vec4 o_position;
 layout(location = 3) out vec4 o_shine;
+layout(location = 4) out vec4 o_id;
+layout(location = 5) out vec4 o_tileId;
 
 void main() {
     vec4 t = texture(tex, uv);
@@ -51,4 +57,6 @@ void main() {
     o_normal = vec4(normal, 1);
     o_position = position;
     o_shine = vec4(toCamera, 1) * u_shine;
+    o_id = vec4(0);
+    o_tileId = vec4(tileId, 0, 0, 1);
 }

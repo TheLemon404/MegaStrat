@@ -3,6 +3,7 @@ package engine.structure;
 import engine.graphics.Instance;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Scene {
@@ -12,14 +13,14 @@ public abstract class Scene {
 
     public HashMap<Integer, Entity> entities = new HashMap<>();
 
-    public HashMap<Integer, Instance> instances = new HashMap<>();
+    public ArrayList<Instance> instances = new ArrayList<>();
 
     public void addEntity(Entity entity){
         entities.put(entity.id, entity);
     }
 
     public void addInstance(Instance instance){
-        instances.put(instance.id, instance);
+        instances.add(instance);
     }
 
     public Entity getEntity(int id){
