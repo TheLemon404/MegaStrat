@@ -48,6 +48,8 @@ public class MasterMesh {
     }
 
     public void sendToRender(){
+        //do all updates here
+
         calculateShadow();
         if(hasShadow){
             EntityRenderer.submit(shader, shadow, shadowTransform, 0);

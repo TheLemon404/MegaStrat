@@ -15,7 +15,7 @@ public class Camera {
     public Matrix4f view = new Matrix4f(), projection = new Matrix4f();
     public Vector3f position = new Vector3f(3, 2, -10);
     public Vector3f rotation = new Vector3f();
-    public float near = 0, far = 100, fov = 70, zoom = 1f;
+    public float near = 0, far = 100, zoom = 1f;
     public float speed = -0.011f;
 
     public Camera(){
