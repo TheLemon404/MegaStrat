@@ -1,9 +1,7 @@
 package engine.graphics;
 
 import engine.core.Globals;
-import engine.core.Runtime;
 import engine.importer.MeshImporter;
-import engine.physics.Raycast;
 import engine.structure.Entity;
 import engine.types.ImageTexture;
 import engine.types.Transform;
@@ -48,8 +46,6 @@ public class MasterMesh {
     }
 
     public void sendToRender(){
-        //do all updates here
-
         calculateShadow();
         if(hasShadow){
             EntityRenderer.submit(shader, shadow, shadowTransform, 0);
