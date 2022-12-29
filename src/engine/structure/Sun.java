@@ -7,6 +7,7 @@ import org.joml.Vector3f;
 public class Sun {
     public float distance = 50;
     public Matrix4f view = new Matrix4f();
+    public Vector3f color = new Vector3f(1,0.8f,0.7f);
 
     public void calculateMatrix(){
         view.identity();

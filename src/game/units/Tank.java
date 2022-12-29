@@ -1,4 +1,4 @@
-package game.entities;
+package game.units;
 
 import engine.core.Globals;
 import engine.importer.EntityImporter;

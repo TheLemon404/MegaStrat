@@ -1,13 +1,9 @@
 package game.scene;
 
-import engine.core.Globals;
-import engine.importer.EntityImporter;
-import engine.structure.Blank;
-import engine.structure.Entity;
 import engine.structure.Scene;
-import game.entities.Tank;
+import game.entities.GridSelect;
+import game.units.Tank;
 import game.instances.Terrain;
-import org.joml.Vector3f;
 
 public class Battlefield extends Scene {
     @Override
@@ -16,6 +12,8 @@ public class Battlefield extends Scene {
         new Terrain(this, 10, 1, 1);
         new Terrain(this, 10, 0, 1);
         new Terrain(this, 10, 1, 0);
+
+        super.addEntity(new GridSelect());
 
         super.addEntity(new Tank());
     }

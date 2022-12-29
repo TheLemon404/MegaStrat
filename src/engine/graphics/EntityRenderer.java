@@ -21,6 +21,7 @@ public class EntityRenderer {
         shader.uploadUniform(mesh.material.color, "u_color");
         shader.uploadUniform(mesh.material.shine, "u_shine");
         shader.uploadUniform((float)id, "u_id");
+        shader.uploadUniform(mesh.material.strength, "u_strength");
         shader.uploadUniform(3, "tex");
         mesh.material.texture.bind(3);
 
@@ -59,6 +60,8 @@ public class EntityRenderer {
 
     public static void lightingPass(FrameBuffer frameBuffer){
         lightingShader.bind();
+
+        lightingShader.uploadUniform(Runtime.currentScene.sun.color, "u_lightColor");
 
         lightingShader.uploadUniform(0, "u_position");
         glActiveTexture(GL_TEXTURE0);

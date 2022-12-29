@@ -23,6 +23,7 @@ public class InstanceRenderer {
             shader.uploadUniform(instance.materials.get(i).color, "u_color[" + i + "]");
         }
         shader.uploadUniform(instance.mesh.material.shine, "u_shine");
+        shader.uploadUniform(instance.mesh.material.strength, "u_strength");
         shader.uploadUniform(4, "tex");
         instance.mesh.material.texture.bind(4);
 
@@ -37,7 +38,9 @@ public class InstanceRenderer {
         glBindVertexArray(instance.mesh.id);
 
         glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
+        if(instance.mesh.uvs != null) {
+            glEnableVertexAttribArray(1);
+        }
         glEnableVertexAttribArray(2);
         if(instance.mesh.colors != null) {
             glEnableVertexAttribArray(3);
@@ -49,7 +52,9 @@ public class InstanceRenderer {
             glDisableVertexAttribArray(3);
         }
         glDisableVertexAttribArray(2);
-        glDisableVertexAttribArray(1);
+        if(instance.mesh.uvs != null) {
+            glDisableVertexAttribArray(1);
+        }
         glDisableVertexAttribArray(0);
 
         glBindVertexArray(0);

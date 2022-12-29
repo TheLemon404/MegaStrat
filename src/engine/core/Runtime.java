@@ -5,6 +5,7 @@ import engine.graphics.FrameBuffer;
 import engine.graphics.Instance;
 import engine.graphics.RenderQuad;
 import engine.graphics.EntityRenderer;
+import engine.platform.PlatformResources;
 import engine.structure.Entity;
 import engine.structure.Scene;
 import game.scene.Battlefield;
@@ -19,6 +20,8 @@ public class Runtime {
     public static FrameBuffer frameBuffer;
     public static void start(Display display){
         Runtime.display = display;
+
+        PlatformResources.getSystemStats();
 
         currentScene.load();
         for(Entity entity : currentScene.entities.values()){
@@ -47,17 +50,19 @@ public class Runtime {
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        for(Instance instance : currentScene.instances.values()){
-            instance.sendToRender(currentScene.camera.view);
-        }
-
         for(Entity entity : currentScene.entities.values()){
             entity.update();
             entity.meshInstance.sendToRender();
         }
+        for(Instance instance : currentScene.instances.values()){
+            instance.sendToRender(currentScene.camera.view);
+        }
+
+        frameBuffer.samplePosition();
 
         if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)) {
             Entity entity = currentScene.getEntity(frameBuffer.sampleId());
+            System.out.println(entity);
         }
 
         frameBuffer.unbind();

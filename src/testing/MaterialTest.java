@@ -5,7 +5,6 @@ import engine.importer.EntityImporter;
 import engine.structure.Blank;
 import engine.structure.Entity;
 import engine.structure.Scene;
-import game.entities.Tank;
 import org.joml.Vector3f;
 
 public class MaterialTest extends Scene {

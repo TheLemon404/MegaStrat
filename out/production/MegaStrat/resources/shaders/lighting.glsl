@@ -17,6 +17,7 @@ void main() {
 in vec2 uv;
 
 uniform vec3 u_lightDirection;
+uniform vec3 u_lightColor;
 uniform sampler2D u_position;
 uniform sampler2D u_normal;
 uniform sampler2D u_color;
@@ -37,5 +38,5 @@ void main() {
 
     float diffuse = max(dot(normalize(normal), unitLightVector), 0.3);
 
-    o_color = vec4(specular, 1) + vec4(color, 1) * diffuse;
+    o_color = vec4(specular, 1) + vec4(color, 1) * vec4(u_lightColor, 1) * diffuse;
 }

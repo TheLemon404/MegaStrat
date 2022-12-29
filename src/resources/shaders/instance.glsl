@@ -38,6 +38,7 @@ in vec3 toCamera;
 
 uniform sampler2D tex;
 uniform float u_shine;
+uniform float u_strength;
 
 layout(location = 0) out vec4 o_color;
 layout(location = 1) out vec4 o_normal;
@@ -45,7 +46,8 @@ layout(location = 2) out vec4 o_position;
 layout(location = 3) out vec4 o_shine;
 
 void main() {
-    o_color = vec4(color,1);
+    vec4 t = texture(tex, uv);
+    o_color = (vec4(color,1) * t) * u_strength;
     o_normal = vec4(normal, 1);
     o_position = position;
     o_shine = vec4(toCamera, 1) * u_shine;
