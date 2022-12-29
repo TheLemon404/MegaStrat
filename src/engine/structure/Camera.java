@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Camera {
-    public Matrix4f view = new Matrix4f(), projection = new Matrix4f();
+    public Matrix4f view = new Matrix4f(), projection = new Matrix4f(), ui = new Matrix4f();
     public Vector3f position = new Vector3f(3, 2, -10);
     public Vector3f rotation = new Vector3f();
     public float near = 0, far = 100, zoom = 1f;
@@ -42,5 +42,8 @@ public class Camera {
 
         projection.identity();
         projection.ortho(0, Runtime.display.width / (150 / Globals.resolution) * zoom, 0, Runtime.display.height / (150 / Globals.resolution) * zoom, near, far);
+
+        ui.identity();
+        ui.ortho(0, Runtime.display.width / (150 / Globals.resolution), 0, Runtime.display.height / (150 / Globals.resolution), near, far);
     }
 }

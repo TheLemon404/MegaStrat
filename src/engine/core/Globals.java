@@ -7,10 +7,13 @@ public class Globals {
 
     public static Shader instanceShader = new Shader("src/resources/shaders/instance.glsl");
 
+    public static Shader guiShader = new Shader("src/resources/shaders/gui.glsl");
+
     public static int resolution = 2;
 
     public static void load(){
         entityShader.compile();
         instanceShader.compile();
+        guiShader.compile();
     }
 }

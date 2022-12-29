@@ -5,6 +5,7 @@ import engine.graphics.FrameBuffer;
 import engine.graphics.Instance;
 import engine.graphics.RenderQuad;
 import engine.graphics.EntityRenderer;
+import engine.gui.GuiLayer;
 import engine.platform.PlatformResources;
 import engine.structure.Entity;
 import engine.structure.Scene;
@@ -39,6 +40,8 @@ public class Runtime {
         RenderQuad.prepare();
 
         Globals.load();
+
+        GuiLayer.load();
     }
 
     public static void loop(){
@@ -69,6 +72,8 @@ public class Runtime {
         glDisable(GL_DEPTH_TEST);
 
         EntityRenderer.lightingPass(frameBuffer);
+
+        GuiLayer.draw();
     }
 
     public static void end(){
