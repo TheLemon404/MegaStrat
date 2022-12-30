@@ -34,7 +34,6 @@ public class Tank extends Entity {
     @Override
     public void update() {
         if(Runtime.currentEntityId == super.id){
-            System.out.println("t");
             meshInstance.hasShadow = false;
         }
         else{

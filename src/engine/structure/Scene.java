@@ -1,6 +1,7 @@
 package engine.structure;
 
 import engine.graphics.Instance;
+import engine.types.Transform;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -28,6 +29,16 @@ public abstract class Scene {
 
     public Entity getEntity(int id){
         return entities.get(id);
+    }
+
+    public Transform getInstanceTransform(int id){
+        for(Instance instance : instances){
+            if(instance.getTransformFromId(id) != null){
+                return instance.getTransformFromId(id);
+            }
+        }
+
+        return null;
     }
 
     public Instance getInstance(int id){
