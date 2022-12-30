@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.core.Globals;
 import engine.importer.MeshImporter;
+import engine.physics.Collider;
 import engine.structure.Entity;
 import engine.types.ImageTexture;
 import engine.types.Transform;
@@ -10,14 +11,19 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 
 public class MasterMesh {
+    public float gravityScale = 1;
+    public Vector3f linearVelocity = new Vector3f();
+
     public Transform transform = new Transform();
     public ArrayList<Mesh> meshes = new ArrayList<>();
     public Mesh shadow;
     public boolean hasShadow = true;
     public boolean squareShadow = false;
+    public boolean hasPhysics = false;
     public Transform shadowTransform = new Transform();
     private Entity entity;
     private Shader shader;
+    public Collider collider;
 
     public void addMesh(Mesh mesh){
         meshes.add(mesh);
@@ -26,6 +32,8 @@ public class MasterMesh {
     public MasterMesh(Shader shader, Entity entity){
         this.shader = shader;
         this.entity = entity;
+
+        collider = new Collider(transform, 0);
     }
 
     public void loadMeshes(){
@@ -46,6 +54,18 @@ public class MasterMesh {
     }
 
     public void sendToRender(){
+        if(hasPhysics) {
+            if (collider.isCollidingWithGround() && linearVelocity.y < 0) {
+                linearVelocity.y = 0;
+                transform.position.y = 0;
+            } else {
+                linearVelocity.y -= gravityScale / 1000;
+            }
+
+            transform.position.x += linearVelocity.x;
+            transform.position.y += linearVelocity.y;
+            transform.position.z += linearVelocity.z;
+        }
         calculateShadow();
         if(hasShadow){
             EntityRenderer.submit(shader, shadow, shadowTransform, 0);
