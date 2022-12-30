@@ -19,7 +19,9 @@ public class Runtime {
     public static Display display;
     public static Scene currentScene = new Battlefield();
     public static FrameBuffer frameBuffer;
+    public static boolean isRunning = false;
     public static int currentTileId;
+    public static int currentEntityId;
     public static void start(Display display, Scene scene){
         Runtime.display = display;
 
@@ -46,6 +48,8 @@ public class Runtime {
         Globals.load();
 
         GuiLayer.load();
+
+        isRunning = true;
     }
 
     public static void loop(){
@@ -67,6 +71,10 @@ public class Runtime {
         }
         for(Instance instance : currentScene.instances){
             instance.sendToRender(currentScene.camera.view);
+        }
+
+        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)){
+            currentEntityId = frameBuffer.sampleId();
         }
 
         currentTileId = frameBuffer.sampleTile();

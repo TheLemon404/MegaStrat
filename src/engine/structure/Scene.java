@@ -16,6 +16,9 @@ public abstract class Scene {
     public ArrayList<Instance> instances = new ArrayList<>();
 
     public void addEntity(Entity entity){
+        if(entity.meshInstance != null) {
+            entity.meshInstance.loadMeshes();
+        }
         entities.put(entity.id, entity);
     }
 

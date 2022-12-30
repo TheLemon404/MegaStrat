@@ -1,5 +1,7 @@
 package engine.physics;
 
+import engine.core.Runtime;
+import engine.structure.Entity;
 import engine.types.Transform;
 
 public class Collider {
@@ -18,6 +20,17 @@ public class Collider {
     public boolean isCollidingWithGround(){
         if(transform.position.y - radius <= 0){
             return true;
+        }
+        return false;
+    }
+
+    public boolean isCollidingWithCollider(){
+        for(Entity entity : Runtime.currentScene.entities.values()) {
+            if(entity.meshInstance.hasPhysics){
+                if(entity.meshInstance.transform.position.distance(transform.position) <= entity.meshInstance.collider.radius + radius){
+                    return true;
+                }
+            }
         }
         return false;
     }

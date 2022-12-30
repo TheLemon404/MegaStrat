@@ -1,5 +1,7 @@
 package game.scene;
 
+import engine.events.KeyboardManager;
+import engine.graphics.Instance;
 import engine.gui.GuiLayer;
 import engine.gui.Window;
 import engine.gui.widgets.Button;
@@ -8,7 +10,12 @@ import game.entities.GridSelect;
 import game.units.Tank;
 import game.instances.Terrain;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
+
 public class Battlefield extends Scene {
+
+    int i = 2;
+
     @Override
     public void load() {
         Window window = new Window();
@@ -44,7 +51,12 @@ public class Battlefield extends Scene {
 
     @Override
     public void update() {
-
+        if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE)){
+            Tank tank = new Tank();
+            tank.meshInstance.transform.position.x = i;
+            super.addEntity(tank);
+            i += 2;
+        }
     }
 
     @Override
