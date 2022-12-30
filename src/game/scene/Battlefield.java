@@ -1,5 +1,8 @@
 package game.scene;
 
+import engine.gui.GuiLayer;
+import engine.gui.Window;
+import engine.gui.widgets.Button;
 import engine.structure.Scene;
 import game.entities.GridSelect;
 import game.units.Tank;
@@ -8,6 +11,12 @@ import game.instances.Terrain;
 public class Battlefield extends Scene {
     @Override
     public void load() {
+        Window window = new Window();
+
+        window.widgets.add(new Button(this::update));
+
+        GuiLayer.windows.add(window);
+
         new Terrain(this, 10, 0, 0);
         new Terrain(this, 10, 1, 1);
         new Terrain(this, 10, 0, 1);

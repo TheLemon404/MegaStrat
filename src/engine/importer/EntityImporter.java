@@ -35,7 +35,9 @@ public class EntityImporter {
             mesh.vertices = toFloatArray(positions);
             mesh.indices = toIntArray(indices);
             mesh.normals = toFloatArray(normals);
-            mesh.uvs = toFloatArray(uvs);
+            if(uvs.size() != 0) {
+                mesh.uvs = toFloatArray(uvs);
+            }
             if(colors.size() != 0) {
                 mesh.colors = toFloatArray(colors);
             }
@@ -85,11 +87,13 @@ public class EntityImporter {
 
         AIVector3D.Buffer u = mesh.mTextureCoords(0);
 
-        for (int i = 0; i < u.limit(); i++) {
-            AIVector3D vector = u.get(i);
+        if(u != null) {
+            for (int i = 0; i < u.limit(); i++) {
+                AIVector3D vector = u.get(i);
 
-            uvs.add(vector.x());
-            uvs.add(vector.y());
+                uvs.add(vector.x());
+                uvs.add(vector.y());
+            }
         }
 
         AIVector3D.Buffer norms = mesh.mNormals();

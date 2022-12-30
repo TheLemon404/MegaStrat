@@ -3,6 +3,7 @@ package engine.core;
 import engine.events.DisplayEvents;
 import engine.events.KeyboardManager;
 import engine.events.MouseManager;
+import engine.structure.Scene;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -22,7 +23,7 @@ public class Display {
     private String title;
     private long window;
     public int width, height;
-    public Display(String title, int width, int height){
+    public Display(String title, int width, int height, Scene scene){
         this.width = width;
         this.height = height;
         this.title = title;
@@ -76,7 +77,7 @@ public class Display {
 
         glfwShowWindow(window);
 
-        Runtime.start(this);
+        Runtime.start(this, scene);
 
         while(!glfwWindowShouldClose(window)){
             glEnable(GL_CULL_FACE);

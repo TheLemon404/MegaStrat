@@ -20,10 +20,12 @@ public class Runtime {
     public static Scene currentScene = new Battlefield();
     public static FrameBuffer frameBuffer;
     public static int currentTileId;
-    public static void start(Display display){
+    public static void start(Display display, Scene scene){
         Runtime.display = display;
 
         PlatformResources.getSystemStats();
+
+        currentScene = scene;
 
         currentScene.load();
 
@@ -32,7 +34,9 @@ public class Runtime {
         }
         for(Entity entity : currentScene.entities.values()){
             entity.start();
-            entity.meshInstance.loadMeshes();
+            if(entity.meshInstance != null) {
+                entity.meshInstance.loadMeshes();
+            }
         }
 
         frameBuffer = new FrameBuffer(display.width / Globals.resolution, display.height / Globals.resolution);
@@ -57,7 +61,9 @@ public class Runtime {
 
         for(Entity entity : currentScene.entities.values()){
             entity.update();
-            entity.meshInstance.sendToRender();
+            if(entity.meshInstance != null) {
+                entity.meshInstance.sendToRender();
+            }
         }
         for(Instance instance : currentScene.instances){
             instance.sendToRender(currentScene.camera.view);

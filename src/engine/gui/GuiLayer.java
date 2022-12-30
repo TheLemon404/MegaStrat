@@ -9,19 +9,13 @@ import java.util.ArrayList;
 
 public class GuiLayer {
 
-    private static ArrayList<Window> windows = new ArrayList<>();
+    public static ArrayList<Window> windows = new ArrayList<>();
     private static Shader shader;
 
     public static void load(){
-        Window window = new Window();
-
-        window.widgets.add(new Button());
-
-        windows.add(window);
-
         for(Window w : windows){
             w.load();
-            for(Widget wi : window.widgets){
+            for(Widget wi : w.widgets){
                 wi.mesh.load();
             }
         }

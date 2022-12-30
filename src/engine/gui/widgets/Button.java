@@ -6,7 +6,21 @@ import engine.types.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import javax.swing.*;
+
 public class Button extends Widget {
+
+    public Runnable callback;
+
+    public Button(Runnable callback){
+        this.callback = callback;
+    }
+
+    @Override
+    public void onClick() {
+        callback.run();
+    }
+
     @Override
     public void load(){
         super.subScale = new Vector2f(0.5f, 0.5f);

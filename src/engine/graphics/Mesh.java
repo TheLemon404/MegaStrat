@@ -29,12 +29,7 @@ public class Mesh {
             2, 1, 3
     };
 
-    public float[] uvs = {
-            0,0,
-            0,1,
-            1,1,
-            1,0
-    };
+    public float[] uvs = null;
     public float[] normals = {
 
     };
