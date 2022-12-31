@@ -24,7 +24,8 @@ public class Button extends Widget {
     @Override
     public void load(){
         super.subScale = new Vector2f(0.5f, 0.5f);
-        super.subPosition = new Vector2f(-2.2f, 2.2f);
+        // Position based on center of Rect GUI
+        super.subPosition = new Vector2f(0, 0f);
         super.color = new Vector3f(0.5f, 0.8f, 0.7f);
     }
 
