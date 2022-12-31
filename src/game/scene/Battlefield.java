@@ -7,8 +7,10 @@ import engine.gui.Window;
 import engine.gui.widgets.Button;
 import engine.structure.Scene;
 import game.entities.GridSelect;
+import game.entities.Projectile;
 import game.units.Tank;
 import game.instances.Terrain;
+import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 
@@ -47,6 +49,7 @@ public class Battlefield extends Scene {
         super.addEntity(new GridSelect());
 
         super.addEntity(new Tank());
+        super.addEntity(new Projectile(new Vector3f(0,0,0), new Vector3f(0,0,0)));
     }
 
     @Override
