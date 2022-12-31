@@ -1,10 +1,7 @@
 package engine.core;
 
 import engine.events.MouseManager;
-import engine.graphics.FrameBuffer;
-import engine.graphics.Instance;
-import engine.graphics.RenderQuad;
-import engine.graphics.EntityRenderer;
+import engine.graphics.*;
 import engine.gui.GuiLayer;
 import engine.platform.PlatformResources;
 import engine.structure.Entity;
@@ -45,6 +42,9 @@ public class Runtime {
                 entity.meshInstance.loadMeshes();
             }
         }
+        for(ParticleInstance particle : currentScene.particles.values()){
+            particle.loadMesh();
+        }
 
         frameBuffer = new FrameBuffer(display.width / Globals.resolution, display.height / Globals.resolution);
 
@@ -76,6 +76,9 @@ public class Runtime {
         }
         for(Instance instance : currentScene.instances){
             instance.sendToRender(currentScene.camera.view);
+        }
+        for(ParticleInstance particle : currentScene.particles.values()){
+            particle.sendToRender(currentScene.camera.view);
         }
 
         if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)){

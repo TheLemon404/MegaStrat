@@ -1,6 +1,8 @@
 package engine.structure;
 
 import engine.graphics.Instance;
+import engine.graphics.ParticleInstance;
+import engine.graphics.ParticleRenderer;
 import engine.types.Transform;
 import org.joml.Vector3f;
 
@@ -13,14 +15,17 @@ public abstract class Scene {
     public Sun sun = new Sun();
 
     public HashMap<Integer, Entity> entities = new HashMap<>();
-
     public ArrayList<Instance> instances = new ArrayList<>();
+    public HashMap<Integer, ParticleInstance> particles = new HashMap<>();
 
     public void addEntity(Entity entity){
         if(entity.meshInstance != null) {
             entity.meshInstance.loadMeshes();
         }
         entities.put(entity.id, entity);
+    }
+    public void addParticle(ParticleInstance particle){
+        particles.put(particle.id, particle);
     }
 
     public void addInstance(Instance instance){
@@ -29,6 +34,10 @@ public abstract class Scene {
 
     public Entity getEntity(int id){
         return entities.get(id);
+    }
+
+    public ParticleInstance getParticle(int id){
+        return particles.get(id);
     }
 
     public Transform getInstanceTransform(int id){

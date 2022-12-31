@@ -77,12 +77,13 @@ public class MeshImporter {
         }
 
         AIVector3D.Buffer u = mesh.mTextureCoords(0);
+        if(u != null) {
+            for (int i = 0; i < u.limit(); i++) {
+                AIVector3D vector = u.get(i);
 
-        for (int i = 0; i < u.limit(); i++) {
-            AIVector3D vector = u.get(i);
-
-            uvs.add(vector.x());
-            uvs.add(vector.y());
+                uvs.add(vector.x());
+                uvs.add(vector.y());
+            }
         }
 
         AIVector3D.Buffer norms = mesh.mNormals();

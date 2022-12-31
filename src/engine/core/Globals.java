@@ -6,6 +6,7 @@ public class Globals {
     public static Shader entityShader = new Shader("src/resources/shaders/entity.glsl");
     public static Shader instanceShader = new Shader("src/resources/shaders/instance.glsl");
     public static Shader guiShader = new Shader("src/resources/shaders/gui.glsl");
+    public static Shader particleShader = new Shader("src/resources/shaders/particle.glsl");
     public static int resolution = 2;
     public static float deltaTime = 0;
 
@@ -13,5 +14,6 @@ public class Globals {
         entityShader.compile();
         instanceShader.compile();
         guiShader.compile();
+        particleShader.compile();
     }
 }

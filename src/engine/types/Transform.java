@@ -16,6 +16,13 @@ public class Transform {
         matrix.scale(scale);
     }
 
+    public void calculateMatrixPosition(Vector3f position){
+        matrix.identity();
+        matrix.translate(new Vector3f(this.position.x + position.x, this.position.y + position.y, this.position.z + position.z));
+        matrix.rotateAffineXYZ(this.rotation.x, this.rotation.y, this.rotation.z);
+        matrix.scale(scale);
+    }
+
     public void calculateMatrix(){
         matrix.identity();
         matrix.translate(position);

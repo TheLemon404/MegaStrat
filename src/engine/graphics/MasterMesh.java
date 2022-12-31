@@ -106,7 +106,6 @@ public class MasterMesh {
                 if (Math.abs(linearVelocity.y) < 0.05f*bounceCoefficient) {
                     linearVelocity.y = 0;
                 }
-                System.out.println(linearVelocity.y);
 
                 // On Ground, Friction is applied
                 // Checks if Entity's Current force breaks Kinetic (Moving) Friction coefficient
