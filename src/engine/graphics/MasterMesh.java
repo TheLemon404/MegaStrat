@@ -1,6 +1,7 @@
 package engine.graphics;
 
 import engine.core.Globals;
+import engine.core.Runtime;
 import engine.importer.MeshImporter;
 import engine.physics.Collider;
 import engine.structure.Entity;
@@ -32,6 +33,9 @@ public class MasterMesh {
     public Transform transform = new Transform();
     public ArrayList<Mesh> meshes = new ArrayList<>();
     public Mesh shadow;
+    public Mesh selectedMesh;
+    public boolean selected = false;
+    // ^--- Determines if Entity has been selected by mouse
     public boolean hasShadow = true;
     // ^--- Determines if Entity has Shadow
     public boolean squareShadow = false;
@@ -58,21 +62,32 @@ public class MasterMesh {
     public void loadMeshes(){
         if(hasShadow){
             if(squareShadow){
-                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.entityShader);
+                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx");
             }
             else {
-                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx", Globals.entityShader);
+                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx");
             }
             shadow.material.texture = new ImageTexture("src/resources/textures/misc/white.png");
             shadow.material.color = new Vector3f(0.2f, 0.5f, 0.4f);
             shadow.load();
         }
+        selectedMesh = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx");
+        selectedMesh.material.color = new Vector3f(0.2f, 0.5f, 0.9f);
+        selectedMesh.load();
         for(Mesh mesh : meshes){
             mesh.load();
         }
     }
 
     public void sendToRender(){
+        //checks if entity is selected
+        if(Runtime.currentEntityId == entity.id){
+            selected = true;
+        }
+        else{
+            selected = false;
+        }
+
         // Checks whether gravity effects Entity
         if(hasPhysics) {
             // Gravity Effect Entity
@@ -116,8 +131,11 @@ public class MasterMesh {
             transform.position.z += linearVelocity.z;
         }
         calculateShadow();
-        if(hasShadow){
+        if(hasShadow && !selected){
             EntityRenderer.submit(shader, shadow, shadowTransform, 0);
+        }
+        if(selected){
+            EntityRenderer.submit(shader, selectedMesh, shadowTransform, 0);
         }
         for(Mesh mesh : meshes){
             transform.calculateMatrix(mesh.subRotation);

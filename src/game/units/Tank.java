@@ -38,17 +38,6 @@ public class Tank extends Entity {
 
     @Override
     public void update() {
-        if(Runtime.currentEntityId == super.id){
-            meshInstance.selected = true;
-        }
-        else{
-            meshInstance.selected = false;
-        }
-
-        //Movement - Random
-
-
-
     }
 
     @Override
