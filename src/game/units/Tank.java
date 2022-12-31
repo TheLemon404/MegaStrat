@@ -15,9 +15,12 @@ public class Tank extends Entity {
             meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/tank.fbx", Globals.entityShader, this);
 
             meshInstance.hasPhysics = true;
+            meshInstance.collider.radius = 0;
             meshInstance.transform.position.y = 15;
+
             meshInstance.transform.rotation.x = (float)Math.toRadians(-90);
             meshInstance.transform.scale = new Vector3f(0.1f, 0.1f, 0.1f);
+            meshInstance.bounceCoefficient = 0.2f;
         }
     }
 
@@ -26,9 +29,11 @@ public class Tank extends Entity {
         meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/tank.fbx", Globals.entityShader, this);
 
         meshInstance.hasPhysics = true;
+        meshInstance.collider.radius = 0;
         meshInstance.transform.position.y = 15;
         meshInstance.transform.rotation.x = (float)Math.toRadians(-90);
         meshInstance.transform.scale = new Vector3f(0.1f, 0.1f, 0.1f);
+        meshInstance.bounceCoefficient = 0.2f;
     }
 
     @Override
@@ -39,6 +44,11 @@ public class Tank extends Entity {
         else{
             meshInstance.selected = false;
         }
+
+        //Movement - Random
+
+
+
     }
 
     @Override

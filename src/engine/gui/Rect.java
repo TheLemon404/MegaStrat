@@ -5,7 +5,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Rect {
-    public Vector2f position = new Vector2f(10, 10), scale = new Vector2f(5, 5);
+    public Vector2f position = new Vector2f(3, 3), scale = new Vector2f(5, 3);
     public float rotation = 0;
     public Matrix4f matrix = new Matrix4f();
 
