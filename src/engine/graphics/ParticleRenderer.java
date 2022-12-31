@@ -1,6 +1,7 @@
 package engine.graphics;
 
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -20,7 +21,7 @@ public class ParticleRenderer {
             shader.uploadUniform(particle.transform.matrix, "u_transforms[" + i + "]");
         }
         shader.uploadUniform(view, "u_view");
-        shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
+        shader.uploadUniform(SceneRuntime.currentScene.camera.projection, "u_projection");
         shader.uploadUniform(particle.material.color, "u_color");
         shader.uploadUniform(particle.mesh.material.shine, "u_shine");
         shader.uploadUniform(particle.mesh.material.strength, "u_strength");

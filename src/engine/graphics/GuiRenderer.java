@@ -1,6 +1,7 @@
 package engine.graphics;
 
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import engine.gui.Rect;
 import engine.gui.Widget;
 import engine.gui.Window;
@@ -16,7 +17,7 @@ public class GuiRenderer {
     public static void submit(Shader shader, Widget widget, Rect rect) {
         shader.bind();
 
-        shader.uploadUniform(Runtime.currentScene.camera.ui, "u_projection");
+        shader.uploadUniform(SceneRuntime.currentScene.camera.ui, "u_projection");
         shader.uploadUniform(rect.matrix, "u_rect");
         shader.uploadUniform(widget.color, "u_color");
 
@@ -33,7 +34,7 @@ public class GuiRenderer {
     public static void submit(Shader shader, Window window, Rect rect) {
         shader.bind();
 
-        shader.uploadUniform(Runtime.currentScene.camera.ui, "u_projection");
+        shader.uploadUniform(SceneRuntime.currentScene.camera.ui, "u_projection");
         shader.uploadUniform(rect.matrix, "u_rect");
         shader.uploadUniform(window.color, "u_color");
 

@@ -1,4 +1,4 @@
-package game.instances;
+package engine.structure;
 
 import engine.core.Globals;
 import engine.graphics.Instance;

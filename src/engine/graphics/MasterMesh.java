@@ -2,6 +2,7 @@ package engine.graphics;
 
 import engine.core.Globals;
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import engine.importer.MeshImporter;
 import engine.physics.Collider;
 import engine.structure.Entity;
@@ -81,7 +82,7 @@ public class MasterMesh {
 
     public void sendToRender(){
         //checks if entity is selected
-        if(Runtime.currentEntityId == entity.id){
+        if(SceneRuntime.currentEntityId == entity.id){
             selected = true;
         }
         else{

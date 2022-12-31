@@ -2,6 +2,7 @@ package game.entities;
 
 import engine.core.Globals;
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import engine.events.MouseManager;
 import engine.graphics.EntityRenderer;
 import engine.graphics.Instance;
@@ -9,9 +10,9 @@ import engine.graphics.Mesh;
 import engine.importer.EntityImporter;
 import engine.importer.MeshImporter;
 import engine.structure.Entity;
+import engine.structure.Scene;
 import engine.types.ImageTexture;
 import engine.types.Transform;
-import game.instances.Terrain;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
@@ -36,9 +37,9 @@ public class GridSelect extends Entity {
 
     @Override
     public void update() {
-        Transform t = getInstanceFromTileId(Runtime.currentTileId);
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && selectedId != Runtime.currentTileId && Runtime.currentTileId != 0){
-            selectedId = Runtime.currentTileId;
+        Transform t = getInstanceFromTileId(SceneRuntime.currentTileId);
+        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && selectedId != SceneRuntime.currentTileId && SceneRuntime.currentTileId != 0){
+            selectedId = SceneRuntime.currentTileId;
         }
         if(selectedId != 0){
             Vector3f pos = getInstanceFromTileId(selectedId).position;
@@ -55,7 +56,7 @@ public class GridSelect extends Entity {
 
     private Transform getInstanceFromTileId(int id){
         Instance i = null;
-        for(Instance instance : Runtime.currentScene.instances){
+        for(Instance instance : SceneRuntime.currentScene.instances){
             if(instance.getTransformFromId(id) != null){
                 i = instance;
             }

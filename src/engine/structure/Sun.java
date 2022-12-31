@@ -1,6 +1,7 @@
 package engine.structure;
 
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -11,7 +12,7 @@ public class Sun {
 
     public void calculateMatrix(){
         view.identity();
-        view.translate(new Vector3f(-Runtime.currentScene.lightDirection.x * distance, -Runtime.currentScene.lightDirection.y * distance, -Runtime.currentScene.lightDirection.z * distance));
-        view.lookAt(new Vector3f(-Runtime.currentScene.lightDirection.x * distance, -Runtime.currentScene.lightDirection.y * distance, -Runtime.currentScene.lightDirection.z * distance), Runtime.currentScene.lightDirection, new Vector3f(0,1,0));
+        view.translate(new Vector3f(-SceneRuntime.currentScene.lightDirection.x * distance, -SceneRuntime.currentScene.lightDirection.y * distance, -SceneRuntime.currentScene.lightDirection.z * distance));
+        view.lookAt(new Vector3f(-SceneRuntime.currentScene.lightDirection.x * distance, -SceneRuntime.currentScene.lightDirection.y * distance, -SceneRuntime.currentScene.lightDirection.z * distance), SceneRuntime.currentScene.lightDirection, new Vector3f(0,1,0));
     }
 }

@@ -14,11 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Runtime {
     public static Display display;
-    public static Scene currentScene = new Battlefield();
-    public static FrameBuffer frameBuffer;
     public static boolean isRunning = false;
-    public static int currentTileId;
-    public static int currentEntityId;
 
     private static float beginTime = 0, endTime = 0, startTime = 0;
 
@@ -29,26 +25,8 @@ public class Runtime {
 
         startTime = (float)System.nanoTime();
 
-        currentScene = scene;
-
-        currentScene.load();
-
-        for(Instance instance : currentScene.instances){
-            instance.loadMesh();
-        }
-        for(Entity entity : currentScene.entities.values()){
-            entity.start();
-            if(entity.meshInstance != null) {
-                entity.meshInstance.loadMeshes();
-            }
-        }
-        for(ParticleInstance particle : currentScene.particles.values()){
-            particle.loadMesh();
-        }
-
-        frameBuffer = new FrameBuffer(display.width / Globals.resolution, display.height / Globals.resolution);
-
-        RenderQuad.prepare();
+        GraphicsRuntime.load(display);
+        SceneRuntime.load(new Battlefield());
 
         Globals.load();
 
@@ -58,50 +36,12 @@ public class Runtime {
     }
 
     public static void loop(){
-        currentScene.update();
-        currentScene.camera.calculateMatrix();
-        currentScene.sun.calculateMatrix();
-
-        frameBuffer.bind();
-
-        glEnable(GL_DEPTH_TEST);
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        for(Entity entity : currentScene.entities.values()){
-            entity.update();
-            if(entity.meshInstance != null) {
-                entity.meshInstance.sendToRender();
-            }
-        }
-        for(Instance instance : currentScene.instances){
-            instance.sendToRender(currentScene.camera.view);
-        }
-        for(ParticleInstance particle : currentScene.particles.values()){
-            particle.sendToRender(currentScene.camera.view);
-        }
-
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)){
-            currentEntityId = frameBuffer.sampleId();
-        }
-
-        currentTileId = frameBuffer.sampleTile();
-
-        frameBuffer.unbind();
-
-        frameBuffer.blit(display.width, display.height);
-
-        glDisable(GL_DEPTH_TEST);
-
-        EntityRenderer.lightingPass(frameBuffer);
-
-        GuiLayer.draw();
+        GraphicsRuntime.beginDraw();
+        SceneRuntime.update();
+        GraphicsRuntime.endDraw(display);
     }
 
     public static void end(){
-        currentScene.end();
-        for(Entity entity : currentScene.entities.values()){
-            entity.end();
-        }
+        SceneRuntime.end();
     }
 }

@@ -1,6 +1,7 @@
 package engine.graphics;
 
 import engine.core.Runtime;
+import engine.core.SceneRuntime;
 import engine.types.Transform;
 import engine.utils.Algorythms;
 import org.joml.Vector3f;
@@ -16,8 +17,8 @@ public class EntityRenderer {
         shader.bind();
 
         shader.uploadUniform(transform.matrix, "u_transform");
-        shader.uploadUniform(Runtime.currentScene.camera.view, "u_view");
-        shader.uploadUniform(Runtime.currentScene.camera.projection, "u_projection");
+        shader.uploadUniform(SceneRuntime.currentScene.camera.view, "u_view");
+        shader.uploadUniform(SceneRuntime.currentScene.camera.projection, "u_projection");
         shader.uploadUniform(mesh.material.color, "u_color");
         shader.uploadUniform(mesh.material.shine, "u_shine");
         shader.uploadUniform((float)id, "u_id");
@@ -70,7 +71,7 @@ public class EntityRenderer {
     public static void lightingPass(FrameBuffer frameBuffer){
         lightingShader.bind();
 
-        lightingShader.uploadUniform(Runtime.currentScene.sun.color, "u_lightColor");
+        lightingShader.uploadUniform(SceneRuntime.currentScene.sun.color, "u_lightColor");
 
         lightingShader.uploadUniform(0, "u_position");
         glActiveTexture(GL_TEXTURE0);
@@ -88,7 +89,7 @@ public class EntityRenderer {
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, frameBuffer.reflectionTexture.id);
 
-        lightingShader.uploadUniform(new Vector3f(-Runtime.currentScene.lightDirection.x, -Runtime.currentScene.lightDirection.y, -Runtime.currentScene.lightDirection.z), "u_lightDirection");
+        lightingShader.uploadUniform(new Vector3f(-SceneRuntime.currentScene.lightDirection.x, -SceneRuntime.currentScene.lightDirection.y, -SceneRuntime.currentScene.lightDirection.z), "u_lightDirection");
 
         RenderQuad.draw();
 

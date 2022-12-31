@@ -1,15 +1,11 @@
 package game.scene;
 
 import engine.events.KeyboardManager;
-import engine.graphics.Instance;
-import engine.gui.GuiLayer;
-import engine.gui.Window;
-import engine.gui.widgets.Button;
 import engine.structure.Scene;
 import game.entities.GridSelect;
 import game.entities.Projectile;
 import game.units.Tank;
-import game.instances.Terrain;
+import engine.structure.Terrain;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
