@@ -18,12 +18,6 @@ public class Battlefield extends Scene {
 
     @Override
     public void load() {
-        Window window = new Window();
-
-        window.widgets.add(new Button(this::update));
-
-        GuiLayer.windows.add(window);
-
         new Terrain(this, 10, 0, 0);
         new Terrain(this, 10, 1, 1);
         new Terrain(this, 10, 0, 1);
@@ -51,7 +45,7 @@ public class Battlefield extends Scene {
 
     @Override
     public void update() {
-        if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE)){
+        if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE) && i < 80){
             Tank tank = new Tank();
             tank.meshInstance.transform.position.x = i;
             super.addEntity(tank);

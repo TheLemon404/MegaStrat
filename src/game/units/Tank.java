@@ -34,10 +34,10 @@ public class Tank extends Entity {
     @Override
     public void update() {
         if(Runtime.currentEntityId == super.id){
-            meshInstance.hasShadow = false;
+            meshInstance.selected = true;
         }
         else{
-            meshInstance.hasShadow = true;
+            meshInstance.selected = false;
         }
     }
 

@@ -22,10 +22,15 @@ public class Runtime {
     public static boolean isRunning = false;
     public static int currentTileId;
     public static int currentEntityId;
+
+    private static float beginTime = 0, endTime = 0, startTime = 0;
+
     public static void start(Display display, Scene scene){
         Runtime.display = display;
 
         PlatformResources.getSystemStats();
+
+        startTime = (float)System.nanoTime();
 
         currentScene = scene;
 

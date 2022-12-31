@@ -18,7 +18,7 @@ public class MeshImporter {
     private static ArrayList<Float> colors = new ArrayList<>();
 
     private static ArrayList<Integer> indices = new ArrayList<>();
-    public static Mesh loadMeshFromFile(String path, Shader shader) {
+    public static Mesh loadMeshFromFile(String path) {
         AIScene scene = Assimp.aiImportFile(path, Assimp.aiProcess_Triangulate);
 
         PointerBuffer buffer = scene.mMeshes();

@@ -39,17 +39,26 @@ public class EntityRenderer {
         if(mesh.uvs != null) {
             glEnableVertexAttribArray(1);
         }
-        glEnableVertexAttribArray(2);
+        if(mesh.normals != null) {
+            glEnableVertexAttribArray(2);
+        }
         if(mesh.colors != null) {
             glEnableVertexAttribArray(3);
         }
 
-        glDrawElements(GL_TRIANGLES, mesh.indices.length, GL_UNSIGNED_INT, 0);
+        if(mesh.indices != null) {
+            glDrawElements(GL_TRIANGLES, mesh.indices.length, GL_UNSIGNED_INT, 0);
+        }
+        else{
+            glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.length / 3);
+        }
 
         if(mesh.colors != null) {
             glDisableVertexAttribArray(3);
         }
-        glDisableVertexAttribArray(2);
+        if(mesh.normals != null) {
+            glDisableVertexAttribArray(2);
+        }
         if(mesh.uvs != null) {
             glDisableVertexAttribArray(1);
         }

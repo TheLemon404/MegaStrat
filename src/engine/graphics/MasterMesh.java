@@ -6,6 +6,7 @@ import engine.physics.Collider;
 import engine.structure.Entity;
 import engine.types.ImageTexture;
 import engine.types.Transform;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ public class MasterMesh {
     public Transform transform = new Transform();
     public ArrayList<Mesh> meshes = new ArrayList<>();
     public Mesh shadow;
+    private Mesh select;
     public boolean hasShadow = true;
     public boolean squareShadow = false;
     public boolean hasPhysics = false;
+    public boolean selected = false;
     public Transform shadowTransform = new Transform();
     private Entity entity;
     private Shader shader;
@@ -39,15 +42,18 @@ public class MasterMesh {
     public void loadMeshes(){
         if(hasShadow){
             if(squareShadow){
-                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.entityShader);
+                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx");
             }
             else {
-                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx", Globals.entityShader);
+                shadow = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx");
             }
             shadow.material.texture = new ImageTexture("src/resources/textures/misc/white.png");
             shadow.material.color = new Vector3f(0.2f, 0.5f, 0.4f);
             shadow.load();
         }
+        select = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/circle.fbx");
+        select.material.color = new Vector3f(0.2f, 0.5f, 0.9f);
+        select.load();
         for(Mesh mesh : meshes){
             mesh.load();
         }
@@ -73,6 +79,12 @@ public class MasterMesh {
         for(Mesh mesh : meshes){
             transform.calculateMatrix(mesh.subRotation);
             EntityRenderer.submit(shader, mesh, transform, entity.id);
+        }
+        if(selected){
+            shadowTransform.scale = new Vector3f(0.3f,0.3f,0.3f);
+            shadowTransform.position.y = 0.002f;
+            shadowTransform.calculateMatrix();
+            EntityRenderer.submit(shader, select, shadowTransform, 0);
         }
     }
 
