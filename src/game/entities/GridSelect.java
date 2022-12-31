@@ -33,6 +33,7 @@ public class GridSelect extends Entity {
         meshInstance.transform.position.y = 0.001f;
         tileMarker.material.color = new Vector3f(0.2f, 0.5f, 0.9f);
         tileMarker.load();
+        meshInstance.selectable = false;
     }
 
     @Override

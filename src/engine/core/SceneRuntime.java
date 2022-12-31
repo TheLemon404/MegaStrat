@@ -3,6 +3,7 @@ package engine.core;
 import engine.events.MouseManager;
 import engine.graphics.Instance;
 import engine.graphics.ParticleInstance;
+import engine.importer.MapImporter;
 import engine.structure.Entity;
 import engine.structure.Scene;
 import game.scene.Battlefield;
@@ -30,6 +31,11 @@ public class SceneRuntime {
         }
         for(ParticleInstance particle : currentScene.particles.values()){
             particle.loadMesh();
+        }
+
+        try {
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

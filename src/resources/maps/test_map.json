@@ -1,11 +1,23 @@
 {
-    "instances":[
-        "src/resources/meshes/misc/cube.fbx":[
-            [3,0,1],
-            [1,0,5]
+    "instances": {
+        "src/resources/meshes/misc/cube.fbx": [
+            [
+                3,
+                0,
+                1
+            ],
+            [
+                1,
+                0,
+                5
+            ]
         ],
-        "src/resources/meshes/misc/cube.fbx":[
-            [0,0,0]
+        "src/resources/meshes/misc/sphere.fbx": [
+            [
+                0,
+                0,
+                0
+            ]
         ]
-    ]
+    }
 }

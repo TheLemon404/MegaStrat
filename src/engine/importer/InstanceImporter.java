@@ -24,7 +24,7 @@ public class InstanceImporter {
         PointerBuffer buffer = scene.mMeshes();
         PointerBuffer mbuffer = scene.mMaterials();
 
-        Instance meshes = new Instance(shader);
+        Instance meshes = new Instance();
 
         AIMesh m = AIMesh.create(buffer.get(0));
         processMesh(m);

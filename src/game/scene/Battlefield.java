@@ -8,11 +8,12 @@ import game.units.Tank;
 import engine.structure.Terrain;
 import org.joml.Vector3f;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Battlefield extends Scene {
 
     int i = 2;
+    Projectile projectile;
 
     @Override
     public void load() {
@@ -39,7 +40,7 @@ public class Battlefield extends Scene {
         super.addEntity(new GridSelect());
 
         super.addEntity(new Tank());
-        Projectile projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.2f,0.1f,0));
+        projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.2f,0.1f,0));
         super.addEntity(projectile);
     }
 
@@ -50,6 +51,10 @@ public class Battlefield extends Scene {
             tank.meshInstance.transform.position.x = i;
             super.addEntity(tank);
             i += 2;
+        }
+        if(KeyboardManager.isKeyDown(GLFW_KEY_J)){
+            projectile.meshInstance.linearVelocity.y = 0.3f;
+            projectile.meshInstance.linearVelocity.x = 0.06f;
         }
     }
 

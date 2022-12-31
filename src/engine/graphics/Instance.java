@@ -1,5 +1,6 @@
 package engine.graphics;
 
+import engine.core.Globals;
 import engine.types.Transform;
 import engine.utils.Algorythms;
 import org.joml.Matrix4f;
@@ -14,8 +15,8 @@ public class Instance {
     public ArrayList<Integer> ids = new ArrayList<>();
     public Shader shader;
 
-    public Instance(Shader shader){
-        this.shader = shader;
+    public Instance(){
+        this.shader = Globals.instanceShader;
         shader.compile();
     }
 

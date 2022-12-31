@@ -1,8 +1,8 @@
 package engine.structure;
 
-public class Unit extends Entity{
+public class BlankScene extends Scene{
     @Override
-    public void start() {
+    public void load() {
 
     }
 

@@ -26,11 +26,12 @@ public class Runtime {
         startTime = (float)System.nanoTime();
 
         GraphicsRuntime.load(display);
-        SceneRuntime.load(new Battlefield());
 
         Globals.load();
 
         GuiLayer.load();
+
+        SceneRuntime.load(new Battlefield());
 
         isRunning = true;
     }

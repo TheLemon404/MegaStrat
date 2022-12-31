@@ -35,6 +35,7 @@ public class MasterMesh {
     public ArrayList<Mesh> meshes = new ArrayList<>();
     public Mesh shadow;
     public Mesh selectedMesh;
+    public boolean selectable = true;
     public boolean selected = false;
     // ^--- Determines if Entity has been selected by mouse
     public boolean hasShadow = true;
@@ -82,7 +83,7 @@ public class MasterMesh {
 
     public void sendToRender(){
         //checks if entity is selected
-        if(SceneRuntime.currentEntityId == entity.id){
+        if(SceneRuntime.currentEntityId == entity.id && selectable){
             selected = true;
         }
         else{
