@@ -2,7 +2,7 @@ package engine.core;
 
 import engine.events.MouseManager;
 import engine.graphics.*;
-import engine.gui.GuiLayer;
+import engine.importer.MapImporter;
 import engine.platform.PlatformResources;
 import engine.structure.Entity;
 import engine.structure.Scene;
@@ -28,9 +28,12 @@ public class Runtime {
 
         Globals.load();
 
-        GuiLayer.load();
-
-        SceneRuntime.load(new Battlefield());
+        try {
+            SceneRuntime.load(MapImporter.importMapFromFile("src/resources/maps/test_map.json"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         isRunning = true;
     }

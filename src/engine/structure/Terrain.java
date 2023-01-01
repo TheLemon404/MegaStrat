@@ -10,22 +10,49 @@ import engine.utils.MathTools;
 import org.joml.Random;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
+
 public class Terrain {
-    public Instance instance;
-    public Terrain(Scene scene, int size, int ox, int oz) {
-        instance = InstanceImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.instanceShader);
-        for (int x = 0; x < size; x++) {
-            for (int z = 0; z < size; z++) {
+    public Vector3f color;
+
+    private Scene currentScene;
+    public Terrain(Scene scene, Vector3f color) {
+        currentScene = scene;
+        this.color = color;
+
+        loadCell(0, 0);
+        loadCell(1,1);
+        loadCell(0,1);
+        loadCell(1,0);
+
+        loadCell(2,2);
+        loadCell(3,3);
+        loadCell(2,3);
+        loadCell(3,2);
+
+        loadCell(2, 0);
+        loadCell(3,1);
+        loadCell(2, 1);
+        loadCell(3, 0);
+
+        loadCell(0, 2);
+        loadCell(1, 3);
+        loadCell(0,3);
+        loadCell(1, 2);
+    }
+
+    private void loadCell(int ox, int oz){
+        Instance instance = InstanceImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.instanceShader);
+        for (int x = 0; x < 10; x++) {
+            for (int z = 0; z < 10; z++) {
                 Transform t = new Transform();
                 t.position = new Vector3f((ox * 20) + x * 2, 0, (oz * 20) + z * 2);
                 Material material = new Material();
-                float g = MathTools.clamp(new Random().nextFloat(), -0.1f, 0.2f);
-                float b = MathTools.clamp(new Random().nextFloat(), -0.1f, 0.1f);
-                material.color = new Vector3f(0.4f, 0.6f + g, 0.4f + b);
-                instance.materials.add(material);
+                material.color = new Vector3f(color.x, color.y, color.z);
+                instance.mesh.material = material;
                 instance.addTransformWithId(t);
             }
         }
-        scene.addInstance(instance);
+        currentScene.addInstance(instance);
     }
 }

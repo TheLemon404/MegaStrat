@@ -3,7 +3,6 @@ package engine.core;
 import engine.graphics.EntityRenderer;
 import engine.graphics.FrameBuffer;
 import engine.graphics.RenderQuad;
-import engine.gui.GuiLayer;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -33,7 +32,5 @@ public class GraphicsRuntime {
         glDisable(GL_DEPTH_TEST);
 
         EntityRenderer.lightingPass(frameBuffer);
-
-        GuiLayer.draw();
     }
 }

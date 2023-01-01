@@ -7,5 +7,12 @@
         "src/resources/meshes/misc/sphere.fbx": [
             [0, 0, 0]
         ]
+    },
+    "environment": {
+        "light_direction": [-0.1, -1, -0.3],
+        "light_color": [0.8, 0.9, 1]
+    },
+    "terrain": {
+        "color": [0.6, 0.8, 0.7]
     }
 }

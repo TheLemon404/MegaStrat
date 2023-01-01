@@ -20,9 +20,7 @@ public class InstanceRenderer {
         }
         shader.uploadUniform(view, "u_view");
         shader.uploadUniform(SceneRuntime.currentScene.camera.projection, "u_projection");
-        for (int i = 0; i < instance.materials.size(); i++){
-            shader.uploadUniform(instance.materials.get(i).color, "u_color[" + i + "]");
-        }
+        shader.uploadUniform(instance.mesh.material.color, "u_color");
         shader.uploadUniform(instance.mesh.material.shine, "u_shine");
         shader.uploadUniform(instance.mesh.material.strength, "u_strength");
         shader.uploadUniform(4, "tex");
