@@ -10,20 +10,19 @@ import game.scene.Battlefield;
 import testing.MaterialTest;
 
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Runtime {
     public static Display display;
     public static boolean isRunning = false;
 
-    private static float beginTime = 0, endTime = 0, startTime = 0;
+    private static float lastLoopTime = 0, timeCount = 0;
 
     public static void start(Display display, Scene scene){
         Runtime.display = display;
 
         PlatformResources.getSystemStats();
-
-        startTime = (float)System.nanoTime();
 
         GraphicsRuntime.load(display);
 
@@ -35,8 +34,15 @@ public class Runtime {
 
         isRunning = true;
     }
+    private static float getDelta() {
+        double time = glfwGetTime();
+        float delta = (float) (time - lastLoopTime);
+        lastLoopTime = (float)time;
+        return delta * 50;
+    }
 
     public static void loop(){
+        Globals.deltaTime = getDelta();
         GraphicsRuntime.beginDraw();
         SceneRuntime.update();
         GraphicsRuntime.endDraw(display);

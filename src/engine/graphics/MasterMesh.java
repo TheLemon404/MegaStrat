@@ -127,9 +127,9 @@ public class MasterMesh {
                 linearVelocity.y -= gravityScale / 1000;
             }
             // Update position of Entity
-            transform.position.x += linearVelocity.x;
-            transform.position.y += linearVelocity.y;
-            transform.position.z += linearVelocity.z;
+            transform.position.x += linearVelocity.x * Globals.deltaTime;
+            transform.position.y += linearVelocity.y * Globals.deltaTime;
+            transform.position.z += linearVelocity.z * Globals.deltaTime;
         }
         calculateShadow();
         if(hasShadow && !selected){

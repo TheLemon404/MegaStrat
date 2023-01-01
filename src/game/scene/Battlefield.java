@@ -12,8 +12,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Battlefield extends Scene {
 
-    int i = 2;
-    Projectile projectile;
+    private int i = 2;
+    private Projectile projectile;
 
     @Override
     public void load() {
@@ -40,7 +40,7 @@ public class Battlefield extends Scene {
         super.addEntity(new GridSelect());
 
         super.addEntity(new Tank());
-        projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.2f,0.1f,0));
+        projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.02f,0.05f,0));
         super.addEntity(projectile);
     }
 
