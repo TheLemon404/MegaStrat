@@ -8,6 +8,7 @@ import engine.physics.Collider;
 import engine.structure.Entity;
 import engine.types.ImageTexture;
 import engine.types.Transform;
+import engine.utils.MathTools;
 import org.joml.Vector3f;
 
 import javax.swing.text.Style;
@@ -20,7 +21,7 @@ public class MasterMesh {
     // ^--- How much does gravity pull down on Entity
     public Vector3f linearVelocity = new Vector3f();
     // ^--- Force Vector
-    public float frictionCoefficient = 0.1f;
+    public float frictionCoefficient = 1f;
     // ^--- How much Friction between Entity and other Entities or Ground
 
     public float airResistanceCoefficient = 0.05f;
@@ -42,6 +43,8 @@ public class MasterMesh {
     // ^--- Determines if Entity has Shadow
     public boolean squareShadow = false;
     // ^--- Determines shape of shadow, Default: Circle
+    public float shadowSize = 0.2f;
+    // ^--- Determines size of shadow, Default: 0.2 - base for Tank - Setting to 1 = full tile
     public boolean hasPhysics = false;
     // ^--- Determines whether gravity effects Entity
     public Transform shadowTransform = new Transform();
@@ -105,7 +108,7 @@ public class MasterMesh {
                     // Stops Entity from falling past Ground
                     transform.position.y = collider.radius;
                 }
-                if (Math.abs(linearVelocity.y) < 0.05f*bounceCoefficient) {
+                if (Math.abs(linearVelocity.y) < 0.1f*bounceCoefficient) {
                     linearVelocity.y = 0;
                 }
 
@@ -118,18 +121,27 @@ public class MasterMesh {
 
                 } else {
                     // Broke friction, has reduced friction has little effect
-                    linearVelocity.x = linearVelocity.x * (1-frictionCoefficient);
-                    linearVelocity.z = linearVelocity.z *(1-frictionCoefficient);
+                    //                   Gets Direction in 1 or -1     multiplied by Absolute Value of velocity with resistance force subtracted from it
+                    if (Math.abs(linearVelocity.x)- (frictionCoefficient*weight/100) > 0) {
+                        linearVelocity.x = (linearVelocity.x / Math.abs(linearVelocity.x)) * Math.abs(linearVelocity.x) - (frictionCoefficient * weight/100);
+                    }else {
+                        linearVelocity.x = 0;
+                    }
+                    if (Math.abs(linearVelocity.z)- (frictionCoefficient*weight/100) > 0) {
+                        linearVelocity.z = (linearVelocity.z / Math.abs(linearVelocity.z)) * Math.abs(linearVelocity.z) - (frictionCoefficient * weight/100);
+                    }else {
+                        linearVelocity.z = 0;
+                    }
                 }
-
             } else {
                 // Entity has not collided with Ground, must still be in Air
-                linearVelocity.y -= gravityScale / 1000;
+                linearVelocity.y -= gravityScale / 1000*weight;
+
             }
             // Update position of Entity
-            transform.position.x += linearVelocity.x * Globals.deltaTime;
-            transform.position.y += linearVelocity.y * Globals.deltaTime;
-            transform.position.z += linearVelocity.z * Globals.deltaTime;
+            transform.position.y += linearVelocity.y / weight * Globals.deltaTime;
+            transform.position.x += linearVelocity.x / weight * Globals.deltaTime;
+            transform.position.z += linearVelocity.z / weight * Globals.deltaTime;
         }
         calculateShadow();
         if(hasShadow && !selected){
@@ -146,7 +158,12 @@ public class MasterMesh {
 
     private void calculateShadow(){
         shadowTransform.position = new Vector3f(transform.position.x, 0.001f, transform.position.z);
-        shadowTransform.scale = new Vector3f(0.2f, 0.2f, 0.2f);
+        float size = shadowSize - (transform.position.y- collider.radius) * 0.5f;
+        if (size < 0) {
+            size = 0;
+        }
+        shadowTransform.scale = new Vector3f(size, size, size);
         shadowTransform.calculateMatrix();
     }
 }
+

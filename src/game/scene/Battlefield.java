@@ -22,7 +22,7 @@ public class Battlefield extends Scene {
         super.addEntity(new GridSelect());
 
         super.addEntity(new Tank());
-        projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.02f,0.05f,0));
+        projectile = new Projectile(new Vector3f(2,0,2), new Vector3f(0.5f,0.7f,0));
         super.addEntity(projectile);
     }
 
@@ -31,12 +31,14 @@ public class Battlefield extends Scene {
         if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE) && i < 80){
             Tank tank = new Tank();
             tank.meshInstance.transform.position.x = i;
+            tank.meshInstance.transform.position.y = 0;
+            tank.meshInstance.linearVelocity.x = 10f;
             super.addEntity(tank);
             i += 2;
         }
         if(KeyboardManager.isKeyDown(GLFW_KEY_J)){
-            projectile.meshInstance.linearVelocity.y = 0.3f;
-            projectile.meshInstance.linearVelocity.x = 0.06f;
+            projectile.meshInstance.linearVelocity.y += 0.2f;
+            projectile.meshInstance.linearVelocity.x = 0.3f;
         }
     }
 
@@ -45,3 +47,4 @@ public class Battlefield extends Scene {
 
     }
 }
+
