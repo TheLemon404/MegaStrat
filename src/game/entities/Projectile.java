@@ -12,7 +12,9 @@ import javax.swing.text.Style;
 public class Projectile extends Entity {
 
     public Vector3f position, force;
+    // ^----- Position and Force Vectors
     public boolean loaded = false;
+    // ^----- Determines if mesh has been loaded yet
 
     public Projectile(){
 
@@ -42,8 +44,6 @@ public class Projectile extends Entity {
             // Adds black Text to Mesh
             meshInstance.meshes.get(0).material.texture = new ImageTexture("src/resources/textures/misc/black.png");
 
-
-
             meshInstance.transform.rotation.x = (float) Math.toRadians(0);
             meshInstance.transform.scale = new Vector3f(0.1f, 0.1f, 0.1f);
             meshInstance.collider.radius = 0.1f;
@@ -52,8 +52,10 @@ public class Projectile extends Entity {
             meshInstance.transform.position = position;
             meshInstance.hasPhysics = true;
             meshInstance.linearVelocity = meshInstance.linearVelocity.add(force);
-            meshInstance.bounceCoefficient = 0.6f;
-            meshInstance.frictionCoefficient = 0.3f;
+            meshInstance.bounceCoefficient = 0.5f;
+            meshInstance.frictionCoefficient = 0.5f;
+            meshInstance.shadowSize = 0.2f;
+            meshInstance.weight = 5;
         }
     }
     @Override
