@@ -114,7 +114,7 @@ public class MasterMesh {
 
                 // On Ground, Friction is applied
                 // Checks if Entity's Current force breaks Kinetic (Moving) Friction coefficient
-                if (Math.sqrt(Math.pow(linearVelocity.x, 2) + Math.pow(linearVelocity.y, 2)) < (weight * frictionCoefficient) / 1000) {
+                if (Math.sqrt(Math.pow(linearVelocity.x, 2) + Math.pow(linearVelocity.z, 2)) < (weight * frictionCoefficient) / 1000) {
                     // Couldn't break friction
                     linearVelocity.x = 0;
                     linearVelocity.z = 0;
@@ -123,12 +123,12 @@ public class MasterMesh {
                     // Broke friction, has reduced friction has little effect
                     //                   Gets Direction in 1 or -1     multiplied by Absolute Value of velocity with resistance force subtracted from it
                     if (Math.abs(linearVelocity.x)- (frictionCoefficient*weight/100) > 0) {
-                        linearVelocity.x = (linearVelocity.x / Math.abs(linearVelocity.x)) * Math.abs(linearVelocity.x) - (frictionCoefficient * weight/100);
+                        linearVelocity.x = (linearVelocity.x / Math.abs(linearVelocity.x)) * (Math.abs(linearVelocity.x) - (frictionCoefficient * weight/100));
                     }else {
                         linearVelocity.x = 0;
                     }
                     if (Math.abs(linearVelocity.z)- (frictionCoefficient*weight/100) > 0) {
-                        linearVelocity.z = (linearVelocity.z / Math.abs(linearVelocity.z)) * Math.abs(linearVelocity.z) - (frictionCoefficient * weight/100);
+                        linearVelocity.z = (linearVelocity.z / Math.abs(linearVelocity.z)) * (Math.abs(linearVelocity.z) - (frictionCoefficient * weight/100));
                     }else {
                         linearVelocity.z = 0;
                     }
@@ -157,8 +157,8 @@ public class MasterMesh {
     }
 
     private void calculateShadow(){
-        shadowTransform.position = new Vector3f(transform.position.x, 0.001f, transform.position.z);
-        float size = shadowSize - (transform.position.y- collider.radius) * 0.5f;
+        shadowTransform.position = new Vector3f(transform.position.x, 0.005f, transform.position.z);
+        float size = shadowSize - (transform.position.y- collider.radius) * 0.25f;
         if (size < 0) {
             size = 0;
         }

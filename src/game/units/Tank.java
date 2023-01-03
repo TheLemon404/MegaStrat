@@ -65,8 +65,11 @@ public class Tank extends Entity {
     @Override
     public void update() {
         // Point in direction of movement vector if Movement is large enough
-        if (Math.sqrt(Math.pow(meshInstance.linearVelocity.x, 2) + Math.pow(meshInstance.linearVelocity.y, 2)) > 0.0001) {
-            meshInstance.transform.rotation.z = (float)Math.toRadians(meshInstance.linearVelocity.x);
+        float movementScalar = (float)Math.sqrt(Math.pow(meshInstance.linearVelocity.x, 2) + Math.pow(meshInstance.linearVelocity.y, 2));
+        if (movementScalar > 0.0001) {
+            meshInstance.transform.rotation.z = (float)Math.toRadians(-90);
+            System.out.println(Math.toRadians( Math.acos(meshInstance.linearVelocity.x / movementScalar)));
+                    //(float)Math.toRadians(meshInstance.linearVelocity.x);
         }
 
 
