@@ -16,7 +16,7 @@ public class SceneRuntime {
     public static int currentEntityId;
 
     public static void load(Scene scene){
-        currentScene = scene;
+        //currentScene = scene;
 
         currentScene.load();
 

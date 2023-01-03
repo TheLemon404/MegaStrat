@@ -36,7 +36,7 @@ public class Projectile extends Entity {
     }
 
     public void load(){
-        if (loaded == false) {
+        if (!loaded) {
             // Loading has Started -- Locks Load System from repeating
             loaded = true;
             // Instantiates new Mesh

@@ -2,22 +2,18 @@ package game.units;
 
 import engine.core.Globals;
 import engine.core.Runtime;
-import engine.events.KeyboardManager;
-import engine.graphics.ParticleInstance;
 import engine.importer.EntityImporter;
-import engine.importer.MeshImporter;
 import engine.structure.Entity;
 import org.joml.Vector3f;
-import java.lang.Math;
 
-public class Tank extends Entity {
+public class Worker extends Entity {
 
     public Vector3f position, force;
     // ^----- Position and Force Vectors
     public boolean loaded = false;
     // ^----- Determines if mesh has been loaded yet
 
-    public Tank(Vector3f _position, Vector3f _force){
+    public Worker(Vector3f _position, Vector3f _force){
         // Instantiated with Position and Force Data
         position = _position;
         force = _force;
@@ -25,7 +21,7 @@ public class Tank extends Entity {
             load();
         }
     }
-    public Tank(Vector3f _position){
+    public Worker(Vector3f _position){
         // Instantiated with Position Data
         position = _position;
         force = new Vector3f();
@@ -33,7 +29,7 @@ public class Tank extends Entity {
             load();
         }
     }
-    public Tank(){
+    public Worker(){
         // New Instantiation without any Data
         position = new Vector3f();
         force = new Vector3f();
@@ -44,13 +40,15 @@ public class Tank extends Entity {
     public void load() {
         if (!loaded) {
             loaded = true;
-            meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/tank.fbx", Globals.entityShader, this);
+            meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/x32_worker.fbx", Globals.entityShader, this);
 
-            meshInstance.hasPhysics = true;
+            meshInstance.hasPhysics = false;
             meshInstance.collider.radius = 0;
-            meshInstance.transform.position.y = 0;
+            meshInstance.transform.position.y = 0.5f;
+            meshInstance.transform.position.x =-2;
 
             meshInstance.transform.rotation.x = (float) Math.toRadians(-90);
+            meshInstance.transform.rotation.z = (float) Math.toRadians(180);
             meshInstance.transform.scale = new Vector3f(0.1f, 0.1f, 0.1f);
             meshInstance.bounceCoefficient = 0.2f;
             meshInstance.weight = 100;
