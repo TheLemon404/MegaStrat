@@ -4,6 +4,7 @@ import engine.core.Globals;
 import engine.core.Runtime;
 import engine.importer.EntityImporter;
 import engine.structure.Entity;
+import engine.types.ImageTexture;
 import org.joml.Vector3f;
 
 public class Worker extends Entity {
@@ -41,7 +42,7 @@ public class Worker extends Entity {
         if (!loaded) {
             loaded = true;
             meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/x32_worker.fbx", Globals.entityShader, this);
-
+            //meshInstance.meshes.get(0).material.strength = 1;
             meshInstance.hasPhysics = false;
             meshInstance.collider.radius = 0;
             meshInstance.transform.position.y = 0.5f;

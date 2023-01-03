@@ -21,7 +21,11 @@ void main() {
     gl_Position = u_projection * u_view * world;
     position = world;
     normal = (u_transform * vec4(a_normal, 0)).xyz;
-    color = u_color;
+    if(a_color != vec3(0)){
+        color = u_color * a_color;
+    }else{
+        color = u_color;
+    }
     uv = a_uv;
     toCamera = (inverse(u_view) * vec4(0,0,0,1)).xyz - world.xyz;
 }
