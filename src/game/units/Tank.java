@@ -63,6 +63,7 @@ public class Tank extends Entity {
             meshInstance.transform.scale = new Vector3f(0.1f, 0.1f, 0.1f);
             meshInstance.bounceCoefficient = 0.2f;
             meshInstance.weight = 100;
+            viewDistance = 5;
         }
     }
 

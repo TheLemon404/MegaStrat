@@ -56,6 +56,7 @@ public class Projectile extends Entity {
             meshInstance.frictionCoefficient = 0.5f;
             meshInstance.shadowSize = 0.2f;
             meshInstance.weight = 5;
+            viewDistance = 1;
         }
     }
     @Override

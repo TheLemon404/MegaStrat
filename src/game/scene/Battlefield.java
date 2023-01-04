@@ -28,7 +28,7 @@ public class Battlefield extends Scene {
 
         //super.addEntity(new Worker());
 
-        projectile = new Projectile(new Vector3f(0,0,1), new Vector3f(0.2f,0.3f,0));
+        projectile = new Projectile(new Vector3f(0,0,2), new Vector3f(0.2f,0.3f,0));
         super.addEntity(projectile);
     }
 
