@@ -9,6 +9,7 @@ import java.util.Random;
 public abstract class Entity {
     public MasterMesh meshInstance;
     public int id;
+    public float viewDistance = 5;
     public Entity(){
         id = Algorythms.generateId(10000, 99999);
     }

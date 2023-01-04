@@ -24,7 +24,8 @@ public class GridSelect extends Entity {
 
     @Override
     public void start() {
-        super.id = 1;
+        id = 0;
+        viewDistance = 0;
         tileMarker = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx");
         meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.entityShader, this);
         meshInstance.meshes.get(0).material.texture = new ImageTexture("src/resources/textures/gameplay/grid_select.png");
