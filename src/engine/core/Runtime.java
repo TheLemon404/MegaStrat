@@ -49,6 +49,13 @@ public class Runtime {
         GraphicsRuntime.beginDraw();
         SceneRuntime.update();
         GraphicsRuntime.endDraw(display);
+        // Selects unit if new click, Not Mouse Held
+        if(MouseManager.newClick()){
+            CommandController.currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
+        }
+
+        // Current Tile ID is set to tile mouse currently is over
+        CommandController.currentTileId = GraphicsRuntime.frameBuffer.sampleTile();
     }
 
     public static void end(){

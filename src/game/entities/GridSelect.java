@@ -25,7 +25,7 @@ public class GridSelect extends Entity {
 
     @Override
     public void start() {
-        id = 0;
+        id = 1;
         viewDistance = 0;
         tileMarker = MeshImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx");
         meshInstance = EntityImporter.loadMeshFromFile("src/resources/meshes/misc/quad.fbx", Globals.entityShader, this);
@@ -41,7 +41,8 @@ public class GridSelect extends Entity {
     @Override
     public void update() {
         Transform t = getInstanceFromTileId(CommandController.currentTileId);
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && selectedId != CommandController.currentTileId && CommandController.currentTileId != 0){
+        System.out.println(CommandController.currentTileId);
+        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && CommandController.currentTileId != 0){
             selectedId = CommandController.currentTileId;
         }
         if(selectedId != 0){

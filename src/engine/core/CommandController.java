@@ -21,13 +21,6 @@ public class CommandController {
 
     // Called every frame
     public static void update() {
-        // Selects unit if new click, Not Mouse Held
-        if(MouseManager.newClick()){
-            currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
-        }
-
-        // Current Tile ID is set to tile mouse currently is over
-        currentTileId = GraphicsRuntime.frameBuffer.sampleTile();
     }
     // Called on last/closing frame
     public static void end() {
