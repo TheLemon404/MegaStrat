@@ -1,5 +1,6 @@
 package engine.graphics;
 
+import engine.core.CommandController;
 import engine.core.Globals;
 import engine.core.Runtime;
 import engine.core.SceneRuntime;
@@ -86,7 +87,7 @@ public class MasterMesh {
 
     public void sendToRender(){
         //checks if entity is selected
-        if(SceneRuntime.currentEntityId == entity.id && selectable){
+        if(CommandController.currentEntityId == entity.id && selectable){
             selected = true;
         }
         else{
