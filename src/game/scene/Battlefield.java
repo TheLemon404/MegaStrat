@@ -6,7 +6,6 @@ import game.entities.GridSelect;
 import game.entities.Projectile;
 import game.units.Tank;
 import engine.structure.Terrain;
-import game.units.Worker;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
