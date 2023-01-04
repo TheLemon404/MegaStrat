@@ -73,17 +73,6 @@ public class Tank extends Entity {
 
     @Override
     public void update() {
-        // Checks if mouse was down in previous frame to determine if new click or hold
-        boolean newClick = false;
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)){
-            if (!mouseDownCurrently) {
-                // Mouse was NOT down 1 frame before this, so this is a NEW Click
-                newClick = true;
-                mouseDownCurrently = true;
-            }
-        } else {
-            mouseDownCurrently = false;
-        }
 
 
 
