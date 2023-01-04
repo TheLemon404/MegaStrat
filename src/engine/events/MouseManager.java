@@ -51,6 +51,7 @@ public class MouseManager {
 
     public static float getScreenY() {
         float y = PlatformResources.monitor.height - ((MouseManager.mousePosition.y / Runtime.display.height) * PlatformResources.monitor.height);
+        y += 15;
         return y / Globals.resolution;
     }
 
