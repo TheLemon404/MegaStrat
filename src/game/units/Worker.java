@@ -7,6 +7,9 @@ import engine.structure.Entity;
 import engine.types.ImageTexture;
 import org.joml.Vector3f;
 
+// Uncomment when ready to implement
+
+/*
 public class Worker extends Entity {
 
     public Vector3f position, force;
@@ -76,3 +79,5 @@ public class Worker extends Entity {
 
     }
 }
+
+*/
