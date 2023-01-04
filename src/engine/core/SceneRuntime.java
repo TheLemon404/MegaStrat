@@ -12,8 +12,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 
 public class SceneRuntime {
     public static Scene currentScene = new Battlefield();
-    public static int currentTileId;
-    public static int currentEntityId;
 
     public static void load(Scene scene){
         //currentScene = scene;
@@ -56,13 +54,6 @@ public class SceneRuntime {
         for(ParticleInstance particle : currentScene.particles.values()){
             particle.sendToRender(currentScene.camera.view);
         }
-
-        // Selects unit if new click, Not Mouse Held
-        if(MouseManager.newClick()){
-            currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
-        }
-
-        currentTileId = GraphicsRuntime.frameBuffer.sampleTile();
     }
 
     public static void end(){

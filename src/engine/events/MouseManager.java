@@ -15,7 +15,7 @@ public class MouseManager {
     public static Vector2f mousePosition = new Vector2f();
     public static Vector2f mouseDelta = new Vector2f();
     public static float scrollDelta;
-    public static boolean mouseBtn1DownCurrently = false;
+    private static boolean mouseBtn1DownCurrently = false;
     // ^---- Tells if the the mouse button 1 is down, used to determine new Click or button held down
 
 

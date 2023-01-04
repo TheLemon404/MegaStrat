@@ -1,5 +1,6 @@
 package game.entities;
 
+import engine.core.CommandController;
 import engine.core.Globals;
 import engine.core.Runtime;
 import engine.core.SceneRuntime;
@@ -39,9 +40,9 @@ public class GridSelect extends Entity {
 
     @Override
     public void update() {
-        Transform t = getInstanceFromTileId(SceneRuntime.currentTileId);
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && selectedId != SceneRuntime.currentTileId && SceneRuntime.currentTileId != 0){
-            selectedId = SceneRuntime.currentTileId;
+        Transform t = getInstanceFromTileId(CommandController.currentTileId);
+        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1) && selectedId != CommandController.currentTileId && CommandController.currentTileId != 0){
+            selectedId = CommandController.currentTileId;
         }
         if(selectedId != 0){
             Vector3f pos = getInstanceFromTileId(selectedId).position;

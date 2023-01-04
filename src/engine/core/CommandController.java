@@ -9,20 +9,28 @@ public class CommandController {
     public static Entity itemSelected;
     // ^--- Last item that was selected
 
+    public static int currentTileId;
+    // ^--- ID of Tile selected
+    public static int currentEntityId;
+    // ^--- ID of Entity selected
+
     // Called on first frame
-    public void start() {
+    public static void start() {
 
     }
 
     // Called every frame
-    public void update() {
+    public static void update() {
         // Selects unit if new click, Not Mouse Held
         if(MouseManager.newClick()){
-            //currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
+            currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
         }
+
+        // Current Tile ID is set to tile mouse currently is over
+        currentTileId = GraphicsRuntime.frameBuffer.sampleTile();
     }
     // Called on last/closing frame
-    public void end() {
+    public static void end() {
 
     }
 }
