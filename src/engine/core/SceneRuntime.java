@@ -57,7 +57,8 @@ public class SceneRuntime {
             particle.sendToRender(currentScene.camera.view);
         }
 
-        if(MouseManager.isButtonDown(GLFW_MOUSE_BUTTON_1)){
+        // Selects unit if new click, Not Mouse Held
+        if(MouseManager.newClick()){
             currentEntityId = GraphicsRuntime.frameBuffer.sampleId();
         }
 

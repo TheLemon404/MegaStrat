@@ -7,8 +7,7 @@ import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseManager {
     private static ArrayList<Integer> upButtons = new ArrayList<>();
@@ -16,6 +15,27 @@ public class MouseManager {
     public static Vector2f mousePosition = new Vector2f();
     public static Vector2f mouseDelta = new Vector2f();
     public static float scrollDelta;
+    public static boolean mouseBtn1DownCurrently = false;
+    // ^---- Tells if the the mouse button 1 is down, used to determine new Click or button held down
+
+
+    // Used to Differentiate between a New Click and Mouse Held
+    public static boolean newClick () {
+        // Checks if mouse was down in previous frame to determine if new click or hold
+        if(isButtonDown(GLFW_MOUSE_BUTTON_1)){
+            if (!mouseBtn1DownCurrently) {
+                // Mouse was NOT down 1 frame before this, so this is a NEW Click
+                mouseBtn1DownCurrently = true;
+                return true;
+            }
+        } else {
+            // Mouse is not Down
+            mouseBtn1DownCurrently = false;
+        }
+        return false;
+    }
+
+
     public static boolean isButtonDown(int key){
         if(downButtons.contains(key)){
             return true;
@@ -77,4 +97,5 @@ public class MouseManager {
     public static void scrollCallback(long window, double x, double y) {
         scrollDelta = (float)y;
     }
+
 }

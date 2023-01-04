@@ -15,6 +15,7 @@ public class Battlefield extends Scene {
 
     private int i = 2;
     private Projectile projectile;
+    private Tank testTank;
 
     @Override
     public void load() {
@@ -22,7 +23,8 @@ public class Battlefield extends Scene {
 
         super.addEntity(new GridSelect());
 
-        super.addEntity(new Tank());
+        testTank = new Tank();
+        super.addEntity(testTank);
 
         //super.addEntity(new Worker());
 
@@ -36,7 +38,7 @@ public class Battlefield extends Scene {
             Tank tank = new Tank();
             tank.meshInstance.transform.position.x = i;
             tank.meshInstance.transform.position.y = 0;
-            tank.meshInstance.linearVelocity.x = 20f;
+            tank.meshInstance.linearVelocity.x = -20;
             super.addEntity(tank);
             i += 2;
         }
