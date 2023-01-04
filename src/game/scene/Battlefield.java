@@ -6,6 +6,7 @@ import game.entities.GridSelect;
 import game.entities.Projectile;
 import game.units.Tank;
 import engine.structure.Terrain;
+import org.joml.Random;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -33,11 +34,11 @@ public class Battlefield extends Scene {
 
     @Override
     public void update() {
-        if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE) && i < 4){
+        if(KeyboardManager.isKeyDown(GLFW_KEY_SPACE) && i < 80){
             Tank tank = new Tank();
             tank.meshInstance.transform.position.x = i;
             tank.meshInstance.transform.position.y = 0;
-            tank.meshInstance.linearVelocity.x = -20;
+            tank.meshInstance.linearVelocity.x = 20;
             super.addEntity(tank);
             i += 2;
         }
