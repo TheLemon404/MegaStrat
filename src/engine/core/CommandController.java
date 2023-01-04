@@ -1,4 +1,4 @@
-package engine.events;
+package engine.core;
 
 import engine.structure.Entity;
 
