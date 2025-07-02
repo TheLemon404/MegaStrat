@@ -11,8 +11,8 @@ MegaStrat was intended to be an RTS game written in JAVA using LWJGL. Though ult
 * The start of a UI library (never was completed)
 
 # Video Showcases
-https://www.youtube.com/watch?v=QYe3zZPvY0M
-https://www.youtube.com/watch?v=a6oKshgttgo
+> https://www.youtube.com/watch?v=QYe3zZPvY0M
+> https://www.youtube.com/watch?v=a6oKshgttgo
 
 # Media
 ![Screenshot_20221225_044737](https://github.com/user-attachments/assets/3afd278d-bca0-46dc-af77-29a3cec8fe62)
